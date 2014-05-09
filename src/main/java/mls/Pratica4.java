@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by vortex on 5/6/14.
+ * Created by vortex on 5/9/14.
  */
-public class Pratica4Backup {
+public class Pratica4 {
 
     private int a;
     private int x0;
@@ -15,7 +15,7 @@ public class Pratica4Backup {
     private double d;
     private int prove;
 
-    public Pratica4Backup(int a, int x0, int b, double d, int prove) {
+    public Pratica4(int a, int x0, int b, double d, int prove) {
         this.setA(a);
         this.setX0(x0);
         this.setM((int) Math.pow(2.0, b));
@@ -24,19 +24,17 @@ public class Pratica4Backup {
         this.setB(b);
     }
 
-   /* public void applicaTest() {
-        testUniformita();
-        testSeriale();
+    public void applicaTest() {
+        List<List<Long>> sequenze = UtilBackup.creaSequenze(this.getD(), this.getA(), this.getX0(), this.getM(), this.getProve());
+        testUniformita(sequenze);
+        testSeriale(sequenze);
     }
 
-    public void testUniformita() {
+    public void testUniformita(List<List<Long>> sequenze) {
         System.out.println("--Il Test di Uniformita' dato [a=" + this.getA() + "]" + "[x0=" + this.getX0() + "]" + "[b=" + this.getB() + "]"+ "[d=" + this.getD() + "]"+ "[prove=" + this.getProve()+ "]");
 
-        // generazione delle sequenze
-        List<List<Integer>> sequenze = UtilBackup.creaSequenze(this.getD(), this.getA(), this.getX0(), this.getM(), this.getProve());
-
         int successi = 0;
-        for (List<Integer> sottoSequenza : sequenze ) {
+        for (List<Long> sottoSequenza : sequenze ) {
 
             // calcolo delle frequenze della sottosequenza
             List<Double> l = UtilBackup.calcolaFrequenze(sottoSequenza);
@@ -48,22 +46,21 @@ public class Pratica4Backup {
             if( UtilBackup.controllaV(v, this.getD() - 1)) {
                 successi++;
             }
-         }
+        }
 
         System.out.println("Risulta Accettabile " + successi + " volte su " +  sequenze.size() + "\n");
     }
 
 
 
-    public void testSeriale() {
+    public void testSeriale(List<List<Long>> sequenze) {
         System.out.println("--Il Test Seriale dato [a=" + this.getA() + "]" + "[x0=" + this.getX0() + "]" + "[b=" + this.getB() + "]"+ "[d=" + this.getD() + "]"+ "[prove=" + this.getProve()+ "]");
 
         // generazione sequenze
-        List<List<Integer>> sequenze = UtilBackup.creaSequenze(this.getD(), this.getA(), this.getX0(), this.getM(), this.getProve());
         int dd = (int) Math.pow(this.getD(), 2);
 
         int successi = 0;
-        for (List<Integer> sequenza : sequenze ) {
+        for (List<Long> sequenza : sequenze ) {
 
             // sequenza (Z0, Z1)
             System.out.print("Sequenza (Z0, Z1) ");
@@ -82,12 +79,12 @@ public class Pratica4Backup {
         System.out.println("Risulta Accettabile " + successi + " volte su " +  sequenze.size() * 2 + "\n");
     }
 
-    private double calcolaVSeriale(List<Integer> sequenza, int serie, int d) {
+    private double calcolaVSeriale(List<Long> sequenza, int serie, int d) {
         int[][] matrix = new int[d][d];
 
         // calcolo matrice delle frequenze
         for (int i = serie; i < sequenza.size() - 1; i+=2) {
-            matrix[sequenza.get(i)][sequenza.get(i + 1)] = matrix[sequenza.get(i)][sequenza.get(i + 1)] + 1;
+            matrix[sequenza.get(i).intValue()][sequenza.get(i + 1).intValue()] = matrix[sequenza.get(i).intValue()][sequenza.get(i + 1).intValue()] + 1;
         }
 
         // calcolo array dalla matrice delle frequenze da passare al metodo per il calcolo di V
@@ -108,23 +105,10 @@ public class Pratica4Backup {
         int x0 = 1;
         int d = 64;
         int prove = 3;
-        Pratica4Backup u1 = new Pratica4Backup(a, x0, b, d, prove);
-        u1.testUniformita();
-        u1.testSeriale();
-
-        b = 19;
-        a = 15;
-        x0 = 1;
-        d = 64;
-        prove = 3;
-        Pratica4Backup u2 = new Pratica4Backup(a, x0, b, d, prove);
-        u2.testUniformita();
-        u2.testSeriale();
+        Pratica4 u1 = new Pratica4(a, x0, b, d, prove);
+        u1.applicaTest();
 
     }
-
-      */
-
 
     public int getA() {
         return a;

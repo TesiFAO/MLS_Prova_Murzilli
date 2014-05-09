@@ -3,6 +3,7 @@ package mls;
 import java.util.Collections;
 import java.util.List;
 
+
 /**
  * Created by vortex on 5/9/14.
  */
@@ -21,11 +22,11 @@ public class Pratica1 {
     }
 
     public List<Long> generaSequenza() {
-        List<Long> l = new GenInteriUniforme(this.getA(), this.getM(), this.getX0()).generaSequenza();
+        List<Long> l = new GeneratoreInteriUniforme(this.getA(), this.getB(), this.getX0()).generaSequenza();
 
         // generazione valori del corollario
-        List<Long> corollarioA1 = Util.generaValoriCorollarioA(b, 1);
-        List<Long> corollarioA2 = Util.generaValoriCorollarioA(b, 15);
+        List<Long> corollarioA1 = Util.generaValoriCorollarioA(this.getB(), 1);
+        List<Long> corollarioA2 = Util.generaValoriCorollarioA(this.getB(), 15);
 
         // stampa della sequenza generata
         System.out.println(stampaSequenza(l));
@@ -54,7 +55,7 @@ public class Pratica1 {
         new Pratica1(11, b, 9).generaSequenza();
         new Pratica1(27, b, 15).generaSequenza();
         new Pratica1(11, b, 233).generaSequenza();
-        new Pratica1(19, b, 427).generaSequenza();;
+        new Pratica1(19, b, 427).generaSequenza();
 
     }
 

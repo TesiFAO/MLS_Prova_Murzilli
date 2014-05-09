@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by vortex on 5/9/14.
  */
-public class Pratica2 {
+public class Pratica3 {
 
     private long a;
     private long x0;
@@ -18,13 +18,13 @@ public class Pratica2 {
     private int k;
     private long[] xos;
 
-    public Pratica2(int a, int x0, int b) {
+    public Pratica3(int a, int x0, int b) {
         this.setA(a);
         this.setX0(x0);
         this.setB(b);
         this.setM((long) Math.pow(2, b));
     }
-    public Pratica2(int a, int x0, int b, int min, int max) {
+    public Pratica3(int a, int x0, int b, int min, int max) {
         this.setA(a);
         this.setX0(x0);
         this.setB(b);
@@ -32,7 +32,7 @@ public class Pratica2 {
         this.setMin(min);
         this.setMax(max);
     }
-    public Pratica2(int a, int b, double avg, int k, long[] xos) {
+    public Pratica3(int a, int b, double avg, int k, long[] xos) {
         this.setA(a);
         this.setB(b);
         this.setM((long) Math.pow(2, b));
@@ -40,7 +40,7 @@ public class Pratica2 {
         this.setK(k);
         this.setXos(xos);
     }
-    public Pratica2(int a, int x0, int b, double avg) {
+    public Pratica3(int a, int x0, int b, double avg) {
         this.setA(a);
         this.setX0(x0);
         this.setB(b);
@@ -51,24 +51,29 @@ public class Pratica2 {
     public List<Double> generaRn() {
         List<Double> l = new GeneratoreRn(this.getA(), this.getB(), this.getX0()).generaSequenza();
         Util.printRn(l, this.getA(), this.getX0(), true, true);
+        Util.calcolaStatistiche(l, 10.0);
         return l;
     }
 
     public List<Double> generaIntervallo() {
         List<Double> l = new GeneratoreUniforme(this.getA(), this.getB(), this.getX0(), this.getMin(), this.getMax()).generaSequenza();
         Util.printSequenzaUniforme(l, this.getA(), this.getX0(), this.getMin(), this.getMax(), true, true);
+        Util.calcolaStatistiche(l, 10.0);
         return l;
     }
 
     public List<Double> generaEsponenziale() {
         List<Double> l = new GeneratoreEsponenziale(this.getA(), this.getB(), this.getX0(), this.getAvg()).generaSequenza();
         Util.printEsponenziale(l, this.getA(), this.getAvg(), this.getX0(), true, true);
+        Util.calcolaStatistiche(l, 25.0);
+
         return l;
     }
 
     public List<Double> generaKErlangiana() {
         List<Double> l = new GeneratoreKErlangiana(this.getA(), this.getB(), this.getXos(), this.getAvg(), this.getK()).generaSequenza();
         Util.printKErlangiana(l, this.getA(), this.getK(), this.getAvg(), this.getXos(), true, true);
+        Util.calcolaStatistiche(l, 20.0);
         return l;
     }
 
@@ -82,13 +87,13 @@ public class Pratica2 {
         double avg = 30.0;
         int k = 3;
 
-        new Pratica2(a, x0, b).generaRn();
-        new Pratica2(a, x0, b, min, max).generaIntervallo();
-        new Pratica2(a, x0, b, avg).generaEsponenziale();
+        new Pratica3(a, x0, b).generaRn();
+        new Pratica3(a, x0, b, min, max).generaIntervallo();
+        new Pratica3(a, x0, b, avg).generaEsponenziale();
 
         // diversi X0 da passare alla k-erlangiana
         long[] xos = new long[]{5,9,67};
-        new Pratica2(a, b, avg, k, xos).generaKErlangiana();
+        new Pratica3(a, b, avg, k, xos).generaKErlangiana();
     }
 
     public long getA() {

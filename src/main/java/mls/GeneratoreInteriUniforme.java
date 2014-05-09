@@ -6,15 +6,16 @@ import java.util.List;
 /**
  * Created by vortex on 5/9/14.
  */
-public class GenInteriUniforme {
+public class GeneratoreInteriUniforme {
     private long a;
     private long b;
     private long m;
     private long x;
 
-    public GenInteriUniforme(long a, long m, long x0) {
+    public GeneratoreInteriUniforme(long a, long b, long x0) {
       this.setA(a);
-      this.setM(m);
+      this.setB(b);
+      this.setM((long) Math.pow(2, b));
       this.setX(x0);
     }
 
@@ -24,12 +25,12 @@ public class GenInteriUniforme {
     }
 
     public List<Long> generaSequenza() {
-        List<Long> s = new ArrayList<Long>((int) Math.pow(2, this.getB()-2));
-        while (!s.contains(x)) {
-            s.add(x);
-            x = (a * x) % m;
+        List<Long> l = new ArrayList<Long>((int) Math.pow(2, this.getB()-2));
+        while (!l.contains(x)) {
+            l.add(x);
+            x = getNext();
         }
-        return s;
+        return l;
     }
 
 

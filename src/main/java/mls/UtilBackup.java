@@ -223,18 +223,18 @@ public class UtilBackup {
             return true;
         }
         else if ( v < z25 ) {
-            System.out.println(v + " < " + z25 + " Rigetto");
+            System.out.println(v + " < " + z25 + " < " + z75 +" Rigetto");
         }
         else if ( v > z75 )  {
-            System.out.println(v + " > " + z75 + " Rigetto");
+            System.out.println(v + " > " + z75  + " > " + z25 + " Rigetto");
         };
         return false;
     }
 
 
-    public static List<Double> calcolaFrequenze(List<Integer> s) {
-        LinkedHashMap<Integer, Double> f = new LinkedHashMap<Integer, Double>();
-        for (Integer v : s) {
+    public static List<Double> calcolaFrequenze(List<Long> s) {
+        LinkedHashMap<Long, Double> f = new LinkedHashMap<Long, Double>();
+        for (Long v : s) {
             double c = 1.0;
             if ( f.containsKey(v))
                 c += f.get(v);
@@ -376,13 +376,14 @@ public class UtilBackup {
         return s;
     }
 
-    public static List<List<Integer>> creaSequenze(double d, int a, int x0, int m, int parti ) {
+    public static List<List<Long>> creaSequenze(double d, int a, int x0, int m, int parti ) {
         List<Double> rns = UtilBackup.generaRn(a, x0, m);
-        List<Integer> zn = new ArrayList<Integer>();
+        System.out.println("HERe");
+        List<Long> zn = new ArrayList<Long>();
         for (Double rn : rns)
-            zn.add((int) Math.floor(d * rn));
+            zn.add((long) Math.floor(d * rn));
 
-        List<List<Integer>> sequenze = new ArrayList<List<Integer>>();
+        List<List<Long>> sequenze = new ArrayList<List<Long>>();
         double dimensioneSequenza = zn.size() / parti;
         int index = 0;
         for(int i=0; i < parti; i++) {
