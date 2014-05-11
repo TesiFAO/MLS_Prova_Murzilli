@@ -2,27 +2,18 @@ package mls.util;
 
 import java.util.*;
 
-/**
- * Created by vortex on 11/05/14.
+/*
+ * @author Simone Murzilli
  */
+
 public class Statistiche {
 
-    public static boolean controllaSequenza(List<Double> l, double min, double max) {
-        for (Double v : l) {
-            if( v <= min || v >= max)
-                return false;
-        }
-        return true;
-    }
-
-    public static boolean controllaSequenzaRn(List<Double> l) {
-        for (Double v : l) {
-            if( v < 0 || v >= 1)
-                return false;
-        }
-        return true;
-    }
-
+    /**
+     * Calcola la media della sequenza
+     *
+     * @param l sequenza
+     * @return media della sequenza
+     */
     public static double calcolaMedia(List<Double> l) {
         double somma = 0.0;
         for (Double v : l) {
@@ -31,14 +22,28 @@ public class Statistiche {
         return (somma / l.size());
     }
 
+    /**
+     * Calcola la varianza della sequenza
+     *
+     * @param l sequenza
+     * @param media media della sequenza
+     * @return varianza della sequenza
+     */
     public static double calcolaVarianza(List<Double> l, double media) {
         double sumsq = 0.0;
         for (Double v : l) {
-            sumsq = sumsq + ((v-media) * (v-media));
+            sumsq += Math.pow(v-media, 2);
         }
         return sumsq / l.size();
     }
 
+    /**
+     * Calcola le statistiche della sequenza
+     *
+     * @param l sequenza
+     * @param intervalli intervalli
+     * @param creaChart booleano per la creazione della chart tramite Highchart
+     */
     public static void calcolaStatistiche(List<Double> l, double intervalli, Boolean creaChart) {
         double min = Collections.min(l);
         double max = Collections.max(l);
@@ -57,14 +62,23 @@ public class Statistiche {
         System.out.println("Varianza: " + varianza + "\n");
 
         if ( creaChart != null && creaChart ) {
-            Highchart.printHighcharts(numeroOccorrenze, min, new Highchart("Numero Occorrenze", "", "column",  "#0.0", "#0"));
-            Highchart.printHighcharts(frequenzaRelativa, min, new Highchart("Requenza Relativa", "", "column",  "#0.0", "#0.000"));
-            Highchart.printHighcharts(densitaProbabilita, min, new Highchart("Densità di Probabilità", "", "column",  "#0.0", "#0.000"));
-            Highchart.printHighcharts(cumulata, min, new Highchart("Cumulata", "", "line",  "#0.0", "#0.000"));
+            Highchart.printHighchart(numeroOccorrenze, min, new Highchart("Numero Occorrenze", "", "column",  "#0.0", "#0"));
+            Highchart.printHighchart(frequenzaRelativa, min, new Highchart("Requenza Relativa", "", "column",  "#0.0", "#0.000"));
+            Highchart.printHighchart(densitaProbabilita, min, new Highchart("Densità di Probabilità", "", "column",  "#0.0", "#0.000"));
+            Highchart.printHighchart(cumulata, min, new Highchart("Cumulata", "", "line",  "#0.0", "#0.000"));
         }
     }
 
-    public static SortedMap<Double, Integer> numeroOsservazioni(List<Double> sequenza, double step, double min, double max) {
+    /**
+     * Calcola il numero di osservazioni della sequenza
+     *
+     * @param l sequenza
+     * @param step step della sequenza
+     * @param min minimo
+     * @param max massimo
+     * @return Map contenente soglie e numero delle occorrenze
+     */
+    public static SortedMap<Double, Integer> numeroOsservazioni(List<Double> l, double step, double min, double max) {
         SortedMap<Double, Integer> osservazioni = new TreeMap();
         double intervalMin = min + step;
 
@@ -74,7 +88,7 @@ public class Statistiche {
             osservazioni.put(range + step, 0);
 
         // per ogni valore della sequenza viene incremeantato il relativo intervallo di appartenenza
-        for(Double v : sequenza) {
+        for(Double v : l) {
             for(double range=min; range <= max; range+=step) {
                 double interval = range + step;
                 if ( v > range && v <= (interval) ) {
@@ -90,6 +104,13 @@ public class Statistiche {
         return osservazioni;
     }
 
+    /**
+     * Calcola la frequenza relativa in base alle osservazioni
+     *
+     * @param osservazioni osservazioni rilevate
+     * @param size dimensione della sequenza
+     * @return Map contenente soglie e valore delle frequenze relative
+     */
     public static SortedMap<Double, Double> frequezaRelativa(SortedMap<Double, Integer> osservazioni, double size) {
         SortedMap<Double, Double> frequenzaRelativa = new TreeMap();
         for(Double key: osservazioni.keySet()) {
@@ -98,6 +119,13 @@ public class Statistiche {
         return frequenzaRelativa;
     }
 
+    /**
+     * Calcola la densità di probabilità dalla frequenza relativa
+     *
+     * @param frequenzaRelativa frequenza relativa della sequenza
+     * @param step intervallo della sequenza
+     * @return Map contenente soglie e valore della densità di probabilità
+     */
     public static SortedMap<Double, Double> densitaProbabilita(SortedMap<Double, Double> frequenzaRelativa, double step) {
         SortedMap<Double, Double> densitaProbabilita = new TreeMap();
         for(Double key: frequenzaRelativa.keySet()) {
@@ -106,9 +134,15 @@ public class Statistiche {
         return densitaProbabilita;
     }
 
+    /**
+     * Calcola la cumulata
+     *
+     * @param frequenzaRelativa frequenza relativa della sequenza
+     * @return Map contenente soglie e valore della cumulata
+     */
     public static SortedMap<Double, Double> calcolaCumulata(SortedMap<Double, Double> frequenzaRelativa) {
         SortedMap<Double, Double> cumulativa = new TreeMap();
-        double sum = 0;
+        double sum = 0.0;
         for(Double key: frequenzaRelativa.keySet()) {
             sum += frequenzaRelativa.get(key);
             cumulativa.put(key,sum);
@@ -116,33 +150,24 @@ public class Statistiche {
         return cumulativa;
     }
 
-    public static List<List<Long>> creaSequenze(double d, long a, long x0, long b, int parti ) {
-        List<Long> zn = new GeneratoreRn(a, b, x0).generaSequenzaZn(d);
-        List<List<Long>> sequenze = new ArrayList<List<Long>>();
-        double dimensioneSequenza = zn.size() / parti;
-        int index = 0;
-        for(int i=0; i < parti; i++) {
-            if ( i < parti - 1)
-                sequenze.add(zn.subList(index, index + (int) dimensioneSequenza));
-            else
-                sequenze.add(zn.subList(index, zn.size()));
-            index += dimensioneSequenza;
-        }
-        return sequenze;
-    }
-
-    public static List<Double> calcolaFrequenze(List<Long> s) {
+    /**
+     * Calcola le frequenze all'interno di una sequenza
+     *
+     * @param l sequenza
+     * @return Lista con il numero delle occorrenze della sequenza
+     */
+    public static List<Double> calcolaFrequenze(List<Long> l) {
         LinkedHashMap<Long, Double> f = new LinkedHashMap<Long, Double>();
-        for (Long v : s) {
+        for (Long v : l) {
             double c = 1.0;
             if ( f.containsKey(v))
                 c += f.get(v);
             f.put(v, c);
         }
 
-        List<Double> l = new ArrayList<Double>();
+        List<Double> s = new ArrayList<Double>();
         for (Double v : f.values())
-            l.add(v);
-        return l;
+            s.add(v);
+        return s;
     }
 }

@@ -19,10 +19,12 @@ public class GeneratoreUniforme {
         this.setMax(max);
     }
 
+    // genera il valore successivo della sequenza
     public double getNext() {
         return min + (grn.getNext() * (max-min));
     }
 
+    // genera la sequenza in base ai parametri del generatore
     public List<Double> generaSequenza() {
         int size = (int) Math.pow(2, grn.getG().getB()- 2);
         List<Double> l = new ArrayList<Double>(size);

@@ -20,10 +20,12 @@ public class GeneratoreCM {
       this.setX(x0);
     }
 
+    // genera il prossimo valore della sequenza
     public long getNext() {
         return x = (a * x) % m;
     }
 
+    // genera la sequenza in base ai parametri del generatore
     public List<Long> generaSequenza() {
         int size = (int) Math.pow(2, this.getB()- 2);
         List<Long> l = new ArrayList<Long>(size);
@@ -33,7 +35,6 @@ public class GeneratoreCM {
         }
         return l;
     }
-
 
     public long getA() {
         return a;

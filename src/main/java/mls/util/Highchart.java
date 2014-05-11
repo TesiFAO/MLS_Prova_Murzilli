@@ -37,7 +37,7 @@ public class Highchart {
        return r;
    }
 
-    public static void printHighcharts(Map map, double min, Highchart highchart) {
+    public static void printHighchart(Map map, double min, Highchart highchart) {
         int count = 0;
         DecimalFormat df = new DecimalFormat(highchart.getDecimalFormatData());
         String data = "[";

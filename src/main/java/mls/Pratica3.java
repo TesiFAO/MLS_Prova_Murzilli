@@ -52,48 +52,29 @@ public class Pratica3 {
     public List<Double> generaRn() {
         List<Double> l = new GeneratoreRn(this.getA(), this.getB(), this.getX0()).generaSequenza();
         Util.printRn(l, this.getA(), this.getX0(), this.getB(), true, false);
-        Util.calcolaStatistiche(l, 10.0, null);
+        Statistiche.calcolaStatistiche(l, 10.0, null);
         return l;
     }
 
     public List<Double> generaIntervallo() {
         List<Double> l = new GeneratoreUniforme(this.getA(), this.getB(), this.getX0(), this.getMin(), this.getMax()).generaSequenza();
         Util.printSequenzaUniforme(l, this.getA(), this.getX0(), this.getB(), this.getMin(), this.getMax(), true, false);
-        Util.calcolaStatistiche(l, 10.0, null);
+        Statistiche.calcolaStatistiche(l, 10.0, null);
         return l;
     }
 
     public List<Double> generaEsponenziale() {
         List<Double> l = new GeneratoreEsponenziale(this.getA(), this.getB(), this.getX0(), this.getAvg()).generaSequenza();
         Util.printEsponenziale(l, this.getA(),this.getB(),  this.getAvg(), this.getX0(), true, false);
-        Util.calcolaStatistiche(l, 25.0, null);
+        Statistiche.calcolaStatistiche(l, 25.0, null);
         return l;
     }
 
     public List<Double> generaKErlangiana() {
         List<Double> l = new GeneratoreKErlangiana(this.getA(), this.getB(), this.getXos(), this.getAvg(), this.getK()).generaSequenza();
         Util.printKErlangiana(l, this.getA(), this.getB(), this.getK(), this.getAvg(), this.getXos(), true, false);
-        Util.calcolaStatistiche(l, 20.0, null);
+        Statistiche.calcolaStatistiche(l, 20.0, null);
         return l;
-    }
-
-    public static void main(String args[]) {
-        int a = 3;
-        int b = 12;
-        int m = (int) Math.pow(2, b);
-        int x0 = 1;
-        int min = 60;
-        int max = 80;
-        double avg = 30.0;
-        int k = 3;
-
-        new Pratica3(a, x0, b).generaRn();
-        new Pratica3(a, x0, b, min, max).generaIntervallo();
-        new Pratica3(a, x0, b, avg).generaEsponenziale();
-
-        // diversi X0 da passare alla k-erlangiana
-        long[] xos = new long[]{5,9,67};
-        new Pratica3(a, b, avg, k, xos).generaKErlangiana();
     }
 
     public long getA() {

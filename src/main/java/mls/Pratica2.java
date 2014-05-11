@@ -73,25 +73,6 @@ public class Pratica2 {
         return l;
     }
 
-    public static void main(String args[]) {
-        int a = 3;
-        int b = 12;
-        int m = (int) Math.pow(2, b);
-        int x0 = 1;
-        int min = 60;
-        int max = 80;
-        double avg = 30.0;
-        int k = 3;
-
-        new Pratica2(a, x0, b).generaRn();
-        new Pratica2(a, x0, b, min, max).generaIntervallo();
-        new Pratica2(a, x0, b, avg).generaEsponenziale();
-
-        // diversi X0 da passare alla k-erlangiana
-        long[] xos = new long[]{5,9,67};
-        new Pratica2(a, b, avg, k, xos).generaKErlangiana();
-    }
-
     public long getA() {
         return a;
     }

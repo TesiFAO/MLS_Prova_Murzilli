@@ -1,8 +1,5 @@
 package mls.util;
 
-import mls.UtilBackup;
-
-import java.text.DecimalFormat;
 import java.util.*;
 
 /*
@@ -10,16 +7,14 @@ import java.util.*;
  */
 public class Util {
 
-    /** Variabili statiche usate nel test Chi-Quadro **/
-    public static double Z25 = -0.674; // accettabile
-    public static double Z75 = 0.674;  // accettabile
-    public static double  Z5 = -1.645;
-    public static double Z95 = 1.645;
-    public static double Z10 = -1.282; //quasi sosteptto P5-P10
-    public static double Z90 = 1.282;  //quasi sosteptto P90-95
-    public static double Z1 = -2.326; // rigettato
-    public static double Z99 = 2.326;  //rigettato
 
+    /**
+     * Genera una lista di valori dal corollario
+     *
+     * @param b
+     * @param x0
+     * @return lista di valori dal corollario a seconda del seme x0 e b
+     */
     public static List<Long> generaValoriCorollarioA(int b, int x0) {
         List<Long> l = new ArrayList<Long>();
         int size = (int) Math.pow(2, (b-3)) -1;
@@ -38,12 +33,43 @@ public class Util {
         return l;
     }
 
+    public static String stampaSequenza(List<Long> l, int a, int b, int x0) {
+        return "--La sequenza creata dato [a=" + a + "]" + "[x0=" + x0 + "]" + "[b=" + b + "] \n"  + l;
+    }
+
+    public static List<List<Long>> creaSequenze(double d, long a, long x0, long b, int parti ) {
+        List<Long> zn = new GeneratoreRn(a, b, x0).generaSequenzaZn(d);
+        List<List<Long>> sequenze = new ArrayList<List<Long>>();
+        double dimensioneSequenza = zn.size() / parti;
+        int index = 0;
+        // vengono create le sotto-sequenze dalla sequenza zn
+        for(int i=0; i < parti; i++) {
+            if ( i < parti - 1)
+                sequenze.add(zn.subList(index, index + (int) dimensioneSequenza));
+            else
+                sequenze.add(zn.subList(index, zn.size()));
+            index += dimensioneSequenza;
+        }
+        return sequenze;
+    }
+
+    /**
+     * Utility di stampa
+     *
+     * @param l
+     * @param a
+     * @param x0
+     * @param b
+     * @param serie
+     * @param controllo
+     * @return
+     */
     public static String printRn(List<Double> l, long a, long x0, long b, boolean serie, boolean controllo) {
         String s = "--Sequenza Rn dato [a=" + a + "]" + "[x0=" + x0 + "]"+ "[b=" + b + "]";
         if ( serie)
             s += "\n" + l;
         if  (controllo ) {
-            boolean c = Statistiche.controllaSequenzaRn(l);
+            boolean c = controllaSequenzaRn(l);
             s += "\nLa sequenza e' compresa tra [0,1) [" + c + "]\n";
         }
         System.out.println(s);
@@ -55,7 +81,7 @@ public class Util {
         if ( serie)
             s += "\n" + l;
         if  (controllo ) {
-            boolean c = Statistiche.controllaSequenza(l, min, max);
+            boolean c = controllaSequenza(l, min, max);
             s += "\nLa sequenza e' compresa tra (" + min + "," + max + ") [" + c + "]\n";
         }
         System.out.println(s);
@@ -92,7 +118,34 @@ public class Util {
         return s;
     }
 
+    /**
+     * controlla se la sequenza è min tra max e min
+     *
+     * @param l sequenza da controllare
+     * @param min minimo
+     * @param max massimo
+     * @return booleano di controllo
+     */
+    public static boolean controllaSequenza(List<Double> l, double min, double max) {
+        for (Double v : l) {
+            if( v <= min || v >= max)
+                return false;
+        }
+        return true;
+    }
 
-
+    /**
+     * controlla se la sequenza è tra [0,1)
+     *
+     * @param l sequenza da controllare
+     * @return booleano di controllo
+     */
+    public static boolean controllaSequenzaRn(List<Double> l) {
+        for (Double v : l) {
+            if( v < 0 || v >= 1)
+                return false;
+        }
+        return true;
+    }
 
 }

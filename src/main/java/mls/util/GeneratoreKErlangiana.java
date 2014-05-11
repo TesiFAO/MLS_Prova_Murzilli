@@ -25,6 +25,7 @@ public class GeneratoreKErlangiana {
         this.setB(b);
     }
 
+    // genera la sequenza in base ai parametri del generatore
     public List<Double> generaSequenza() {
         List<Double> l = new ArrayList<Double>();
         double avgk = -avg / k;
@@ -39,6 +40,7 @@ public class GeneratoreKErlangiana {
         return l;
     }
 
+    // aggiunge k-esimo generatore
     private void addGn(GeneratoreRn grn) {
        this.getGrns().add(grn);
     }

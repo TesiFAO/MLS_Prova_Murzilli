@@ -16,10 +16,12 @@ public class GeneratoreEsponenziale {
         this.setAvg(avg);
     }
 
+    // genera il valore successivo della sequenza
     public double getNext() {
         return (-avg * Math.log(grn.getNext()));
     }
 
+    // genera la sequenza in base ai parametri del generatore
     public List<Double> generaSequenza() {
         int size = (int) Math.pow(2, grn.getG().getB()- 2);
         List<Double> l = new ArrayList<Double>(size);

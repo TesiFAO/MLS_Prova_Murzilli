@@ -18,6 +18,14 @@ public class MLS {
             else if (arg.equals("pratica4"))
                 pratica4();
         }
+
+       /* pratica1();
+        pratica2();
+        pratica3();
+        pratica4();
+        pratica4();*/
+
+        pratica4();
     }
 
     private static void pratica1() {
@@ -58,30 +66,22 @@ public class MLS {
         double avg = 30.0;
         int k = 3;
 
-        new Pratica3Backup(a, x0, m, min, max).generaRn();
-        new Pratica3Backup(a, x0, m, min, max).generaIntervallo();
-        new Pratica3Backup(a, x0, m, avg).generaEsponenziale();
+        new Pratica3(a, x0, b).generaRn();
+        new Pratica3(a, x0, b, min, max).generaIntervallo();
+        new Pratica3(a, x0, b, avg).generaEsponenziale();
 
-        int[] xos = new int[]{5,9,67};
-        new Pratica3Backup(a, m, avg, k, xos).generaKErlangiana();
+        // diversi X0 da passare alla k-erlangiana
+        long[] xos = new long[]{5,9,67};
+        new Pratica3(a, b, avg, k, xos).generaKErlangiana();
     }
 
     private static void pratica4() {
         int b = 19;
-        int a = 85;
-        int x0 = 3;
         int d = 64;
         int prove = 3;
-        Pratica4 u = new Pratica4(a, x0, b, d, prove);
-        u.applicaTest();
-
-        b = 19;
-        a = 85;
-        x0 = 3;
-        d = 64;
-        prove = 3;
-        Pratica4 s = new Pratica4(a, x0, b, d, prove);
-        s.applicaTest();
+        long a = 10037;
+        long x0 = 161;
+        new Pratica4(a, x0, b, d, prove).applicaTest();
     }
 
 }
