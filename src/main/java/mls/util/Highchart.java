@@ -1,4 +1,7 @@
-package mls;
+package mls.util;
+
+import java.text.DecimalFormat;
+import java.util.Map;
 
 /*
  * @author Simone Murzilli
@@ -33,6 +36,38 @@ public class Highchart {
        r = r.replace("$_DATA", data);
        return r;
    }
+
+    public static void printHighcharts(Map map, double min, Highchart highchart) {
+        int count = 0;
+        DecimalFormat df = new DecimalFormat(highchart.getDecimalFormatData());
+        String data = "[";
+        for(Object key: map.keySet()) {
+            count++;
+            data += df.format(map.get(key));
+            if ( count < map.size()) {
+                data += (",");
+            }
+        }
+        data += "]";
+
+        df = new DecimalFormat(highchart.getDecimalFormatCategories());
+        String categories = "[";
+        count = 0;
+        String prec = df.format(min);
+        for(Object key: map.keySet()) {
+            count++;
+            categories += "\"" + prec + "-" + df.format(key) + "\"";
+            prec = df.format(key);
+            if ( count < map.size()) {
+                categories += ",";
+            }
+        }
+        categories += "]";
+
+        highchart.setData(data);
+        highchart.setCategories(categories);
+        System.out.println("Highchart: " + highchart.getChart());
+    }
 
     public String getTitle() {
         return title;

@@ -1,6 +1,7 @@
 package mls;
 
-import java.util.Collections;
+import mls.util.*;
+
 import java.util.List;
 
 /*

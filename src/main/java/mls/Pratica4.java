@@ -1,5 +1,8 @@
 package mls;
 
+import mls.util.TestChiQuadro;
+import mls.util.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,10 +59,10 @@ public class Pratica4 {
             List<Double> l = Util.calcolaFrequenze(sottoSequenza);
 
             // calcolo di V
-            double v = Util.calcolaV(l, sottoSequenza.size(), 1 / this.getD());
+            double v =  TestChiQuadro.calcolaV(l, sottoSequenza.size(), 1 / this.getD());
 
             // controllo V con d-1 gradi di liberta'
-            if( Util.controllaV(v, this.getD() - 1)) {
+            if( TestChiQuadro.controllaV(v, this.getD() - 1)) {
                 successi++;
             }
         }
@@ -82,14 +85,14 @@ public class Pratica4 {
             // sequenza (Z0, Z1)
             //System.out.print("Sequenza (Z0, Z1) ");
             double v1 = calcolaVSeriale(sequenza, 0, (int) this.getD());
-            if ( Util.controllaV(v1, dd - 1) )  {
+            if (  TestChiQuadro.controllaV(v1, dd - 1) )  {
                 successi++;
             }
 
             // sequenza (Z1, Z2)
             //System.out.print("Sequenza (Z1, Z2) ");
             double v2 = calcolaVSeriale(sequenza, 1, (int) this.getD());
-            if ( Util.controllaV(v2, dd - 1) ) {
+            if ( TestChiQuadro.controllaV(v2, dd - 1) ) {
                 successi++;
             }
         }
@@ -113,7 +116,7 @@ public class Pratica4 {
             }
         }
 
-        return Util.calcolaV(l, (double) sequenza.size() / 2, (double) 1 / Math.pow(d, 2));
+        return TestChiQuadro.calcolaV(l, (double) sequenza.size() / 2, (double) 1 / Math.pow(d, 2));
     }
 
 
