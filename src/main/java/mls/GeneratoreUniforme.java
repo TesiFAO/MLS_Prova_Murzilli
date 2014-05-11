@@ -3,9 +3,10 @@ package mls;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vortex on 5/9/14.
+/*
+ * @author Simone Murzilli
  */
+
 public class GeneratoreUniforme {
     private GeneratoreRn grn;
     private double min;
@@ -19,14 +20,14 @@ public class GeneratoreUniforme {
     }
 
     public double getNext() {
-        return min + ((max-min) * (grn.getNext()));
+        return min + (grn.getNext() * (max-min));
     }
 
     public List<Double> generaSequenza() {
-        System.out.println(grn.getG());
-        List<Double> l = new ArrayList<Double>((int) Math.pow(2, grn.getG().getB()- 2));
+        int size = (int) Math.pow(2, grn.getG().getB()- 2);
+        List<Double> l = new ArrayList<Double>(size);
         double v = getNext();
-        while (!l.contains(v)) {
+        while( l.size() < size) {
             l.add(v);
             v = getNext();
         }

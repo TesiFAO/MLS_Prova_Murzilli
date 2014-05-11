@@ -76,8 +76,8 @@ public class MLS {
         u.applicaTest();
 
         b = 19;
-        a = 3;
-        x0 = 11;
+        a = 85;
+        x0 = 3;
         d = 64;
         prove = 3;
         Pratica4 s = new Pratica4(a, x0, b, d, prove);

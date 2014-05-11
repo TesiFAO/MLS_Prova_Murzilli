@@ -3,8 +3,8 @@ package mls;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by vortex on 5/9/14.
+/*
+ * @author Simone Murzilli
  */
 public class Pratica3 {
 
@@ -50,30 +50,29 @@ public class Pratica3 {
 
     public List<Double> generaRn() {
         List<Double> l = new GeneratoreRn(this.getA(), this.getB(), this.getX0()).generaSequenza();
-        Util.printRn(l, this.getA(), this.getX0(), true, true);
-        Util.calcolaStatistiche(l, 10.0);
+        Util.printRn(l, this.getA(), this.getX0(), this.getB(), true, false);
+        Util.calcolaStatistiche(l, 10.0, null);
         return l;
     }
 
     public List<Double> generaIntervallo() {
         List<Double> l = new GeneratoreUniforme(this.getA(), this.getB(), this.getX0(), this.getMin(), this.getMax()).generaSequenza();
-        Util.printSequenzaUniforme(l, this.getA(), this.getX0(), this.getMin(), this.getMax(), true, true);
-        Util.calcolaStatistiche(l, 10.0);
+        Util.printSequenzaUniforme(l, this.getA(), this.getX0(), this.getB(), this.getMin(), this.getMax(), true, false);
+        Util.calcolaStatistiche(l, 10.0, null);
         return l;
     }
 
     public List<Double> generaEsponenziale() {
         List<Double> l = new GeneratoreEsponenziale(this.getA(), this.getB(), this.getX0(), this.getAvg()).generaSequenza();
-        Util.printEsponenziale(l, this.getA(), this.getAvg(), this.getX0(), true, true);
-        Util.calcolaStatistiche(l, 25.0);
-
+        Util.printEsponenziale(l, this.getA(),this.getB(),  this.getAvg(), this.getX0(), true, false);
+        Util.calcolaStatistiche(l, 25.0, null);
         return l;
     }
 
     public List<Double> generaKErlangiana() {
         List<Double> l = new GeneratoreKErlangiana(this.getA(), this.getB(), this.getXos(), this.getAvg(), this.getK()).generaSequenza();
-        Util.printKErlangiana(l, this.getA(), this.getK(), this.getAvg(), this.getXos(), true, true);
-        Util.calcolaStatistiche(l, 20.0);
+        Util.printKErlangiana(l, this.getA(), this.getB(), this.getK(), this.getAvg(), this.getXos(), true, false);
+        Util.calcolaStatistiche(l, 20.0, null);
         return l;
     }
 

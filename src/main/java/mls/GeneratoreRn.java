@@ -3,15 +3,16 @@ package mls;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vortex on 5/9/14.
+/*
+ * @author Simone Murzilli
  */
+
 public class GeneratoreRn {
 
-    private GeneratoreInteriUniforme g;
+    private GeneratoreCongruenteMolt g;
 
     public GeneratoreRn(long a, long b, long x0) {
-       this.setG(new GeneratoreInteriUniforme(a, b, x0));
+       this.setG(new GeneratoreCongruenteMolt(a, b, x0));
     }
 
     public double getNext() {
@@ -21,11 +22,23 @@ public class GeneratoreRn {
     }
 
     public List<Double> generaSequenza() {
-        List<Double> l = new ArrayList<Double>((int) Math.pow(2, g.getB()- 2));
+        int size = (int) Math.pow(2, g.getB()- 2);
+        List<Double> l = new ArrayList<Double>(size);
         double v = getNext();
-        while (!l.contains(v)) {
+        while( l.size() < size) {
             l.add(v);
             v = getNext();
+        }
+        return l;
+    }
+
+    public List<Long> generaSequenzaZn(double d) {
+        int size = (int) Math.pow(2, g.getB()- 2);
+        List<Long> l = new ArrayList<Long>(size);
+        double v = getNext() * d;
+        while( l.size() < size) {
+            l.add((long) Math.floor(v));
+            v = getNext()* d;
         }
         return l;
     }
@@ -37,11 +50,11 @@ public class GeneratoreRn {
     }
 
 
-    public GeneratoreInteriUniforme getG() {
+    public GeneratoreCongruenteMolt getG() {
         return g;
     }
 
-    public void setG(GeneratoreInteriUniforme g) {
+    public void setG(GeneratoreCongruenteMolt g) {
         this.g = g;
     }
 

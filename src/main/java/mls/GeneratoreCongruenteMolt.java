@@ -3,16 +3,17 @@ package mls;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vortex on 5/9/14.
+/*
+ * @author Simone Murzilli
  */
-public class GeneratoreInteriUniforme {
+
+public class GeneratoreCongruenteMolt {
     private long a;
     private long b;
     private long m;
     private long x;
 
-    public GeneratoreInteriUniforme(long a, long b, long x0) {
+    public GeneratoreCongruenteMolt(long a, long b, long x0) {
       this.setA(a);
       this.setB(b);
       this.setM((long) Math.pow(2, b));
@@ -20,13 +21,13 @@ public class GeneratoreInteriUniforme {
     }
 
     public long getNext() {
-        x = (a * x) % m;
-        return x;
+        return x = (a * x) % m;
     }
 
     public List<Long> generaSequenza() {
-        List<Long> l = new ArrayList<Long>((int) Math.pow(2, this.getB()-2));
-        while (!l.contains(x)) {
+        int size = (int) Math.pow(2, this.getB()- 2);
+        List<Long> l = new ArrayList<Long>(size);
+        while( l.size() < size) {
             l.add(x);
             x = getNext();
         }

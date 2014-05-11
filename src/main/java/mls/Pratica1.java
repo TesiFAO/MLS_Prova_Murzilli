@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 
-/**
- * Created by vortex on 5/9/14.
+/*
+ * @author Simone Murzilli
  */
 public class Pratica1 {
 
@@ -22,7 +22,7 @@ public class Pratica1 {
     }
 
     public List<Long> generaSequenza() {
-        List<Long> l = new GeneratoreInteriUniforme(this.getA(), this.getB(), this.getX0()).generaSequenza();
+        List<Long> l = new GeneratoreCongruenteMolt(this.getA(), this.getB(), this.getX0()).generaSequenza();
 
         // generazione valori del corollario
         List<Long> corollarioA1 = Util.generaValoriCorollarioA(this.getB(), 1);
@@ -30,23 +30,24 @@ public class Pratica1 {
 
         // stampa della sequenza generata
         System.out.println(stampaSequenza(l));
-        System.out.println(l.size());
 
         // ordinamento della sequenza
         Collections.sort(l);
 
         // controllo se la sequenza ordinata appartiene al corollario
-        if (l.equals(corollarioA1) || l.equals(corollarioA2))
-            System.out.println("la sequenza e' contenuta nel corollario\n");
+        if (l.equals(corollarioA1))
+            System.out.println("E' contenuta nella lista A1 creata dal corollario\n");
+        else if (l.equals(corollarioA2))
+            System.out.println("E' contenuta nella lista A2 creata dal corollario\n");
         else
-            System.out.println("Error: la sequenza non e' contenuta nel corollario\n");
+            System.out.println("Non e' contenuta in una delle liste create dal corollario\n");
 
         return l;
     }
 
 
     private String stampaSequenza(List<Long> l) {
-        return "[a=" + this.getA() + "]" + "[x0=" + this.getX0() + "]" + "[b=" + this.getB() + "] "  + l;
+        return "--La sequenza creata dato [a=" + this.getA() + "]" + "[x0=" + this.getX0() + "]" + "[b=" + this.getB() + "] \n"  + l;
     }
 
     public static void main(String args[]) {

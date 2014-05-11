@@ -223,10 +223,10 @@ public class UtilBackup {
             return true;
         }
         else if ( v < z25 ) {
-            System.out.println(v + " < " + z25 + " < " + z75 +" Rigetto");
+           // System.out.println(v + " < " + z25 + " < " + z75 +" Rigetto");
         }
         else if ( v > z75 )  {
-            System.out.println(v + " > " + z75  + " > " + z25 + " Rigetto");
+            //System.out.println(v + " > " + z75  + " > " + z25 + " Rigetto");
         };
         return false;
     }
@@ -254,9 +254,8 @@ public class UtilBackup {
     }
 
 
-    public static SortedMap<Double, Integer> numeroOsservazioni(List<Double> sequenza, double intervalli, double min, double max) {
+    public static SortedMap<Double, Integer> numeroOsservazioni(List<Double> sequenza, double step, double min, double max) {
         SortedMap<Double, Integer> osservazioni = new TreeMap();
-        double step = (max - min) / intervalli;
         double intervalMin = min + step;
         osservazioni.put(intervalMin, 0);
         for(double range=min; range < max; range+=step)

@@ -3,9 +3,10 @@ package mls;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vortex on 5/9/14.
+/*
+ * @author Simone Murzilli
  */
+
 public class GeneratoreKErlangiana {
     private List<GeneratoreRn> grns;
     private double avg;
@@ -22,10 +23,6 @@ public class GeneratoreKErlangiana {
         this.setK(k);
         this.setXos(x0s);
         this.setB(b);
-    }
-
-    public double getNext(GeneratoreRn grn) {
-        return Math.log(grn.getNext());
     }
 
     public List<Double> generaSequenza() {
