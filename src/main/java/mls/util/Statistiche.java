@@ -16,7 +16,15 @@ public class Statistiche {
      */
     public static double calcolaMedia(double[] l) {
         double somma = 0.0;
-        for (Double v : l) {
+        for (double v : l) {
+            somma += v;
+        }
+        return somma / l.length;
+    }
+
+    public static double calcolaMedia(long[] l) {
+        double somma = 0.0;
+        for (long v : l) {
             somma += v;
         }
         return somma / l.length;
@@ -35,6 +43,18 @@ public class Statistiche {
             sumsq += Math.pow(v-media, 2);
         }
         return sumsq / l.length;
+    }
+
+    public static double calcolaVarianza(long[] l, double media) {
+        double sumsq = 0.0;
+        for (long v : l) {
+            sumsq += Math.pow(v-media, 2);
+        }
+        return sumsq / l.length;
+    }
+
+    public static double calcolaStandardDeviation(double varianza) {
+        return Math.sqrt(varianza);
     }
 
     /**
