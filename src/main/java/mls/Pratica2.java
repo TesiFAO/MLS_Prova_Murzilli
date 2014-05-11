@@ -1,8 +1,7 @@
 package mls;
 
+import it.unimarconi.mls.util.*;
 import mls.util.*;
-
-import java.util.List;
 
 /*
  * @author Simone Murzilli

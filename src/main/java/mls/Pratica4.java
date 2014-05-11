@@ -4,9 +4,6 @@ import mls.util.Statistiche;
 import mls.util.TestChiQuadro;
 import mls.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * @author Simone Murzilli
  */
