@@ -22,7 +22,7 @@ public class Pratica1 {
     }
 
     public List<Long> generaSequenza() {
-        List<Long> l = new GeneratoreCongruenteMolt(this.getA(), this.getB(), this.getX0()).generaSequenza();
+        List<Long> l = new GeneratoreCM(this.getA(), this.getB(), this.getX0()).generaSequenza();
 
         // generazione valori del corollario
         List<Long> corollarioA1 = Util.generaValoriCorollarioA(this.getB(), 1);

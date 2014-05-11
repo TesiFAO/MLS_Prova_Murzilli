@@ -9,10 +9,10 @@ import java.util.List;
 
 public class GeneratoreRn {
 
-    private GeneratoreCongruenteMolt g;
+    private GeneratoreCM g;
 
     public GeneratoreRn(long a, long b, long x0) {
-       this.setG(new GeneratoreCongruenteMolt(a, b, x0));
+       this.setG(new GeneratoreCM(a, b, x0));
     }
 
     public double getNext() {
@@ -50,11 +50,11 @@ public class GeneratoreRn {
     }
 
 
-    public GeneratoreCongruenteMolt getG() {
+    public GeneratoreCM getG() {
         return g;
     }
 
-    public void setG(GeneratoreCongruenteMolt g) {
+    public void setG(GeneratoreCM g) {
         this.g = g;
     }
 

@@ -7,13 +7,13 @@ import java.util.List;
  * @author Simone Murzilli
  */
 
-public class GeneratoreCongruenteMolt {
+public class GeneratoreCM {
     private long a;
     private long b;
     private long m;
     private long x;
 
-    public GeneratoreCongruenteMolt(long a, long b, long x0) {
+    public GeneratoreCM(long a, long b, long x0) {
       this.setA(a);
       this.setB(b);
       this.setM((long) Math.pow(2, b));
