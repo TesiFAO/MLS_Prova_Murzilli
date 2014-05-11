@@ -26,16 +26,16 @@ public class GeneratoreKErlangiana {
     }
 
     // genera la sequenza in base ai parametri del generatore
-    public List<Double> generaSequenza() {
-        List<Double> l = new ArrayList<Double>();
-        double avgk = -avg / k;
+    public double[] generaSequenza() {
         int size = (int) Math.pow(2, b- 2);
+        double[] l = new double[size];
+        double avgk = -avg / k;
         for(int i=0; i < size; i++) {
             double sumlog = 0.0;
             for (int j = 0; j < k; j++) {
                 sumlog += Math.log(getGrns().get(j).getNext());
             }
-            l.add((avgk) * sumlog);
+            l[i] = (avgk) * sumlog;
         }
         return l;
     }

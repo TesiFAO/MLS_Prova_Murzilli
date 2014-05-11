@@ -18,7 +18,7 @@ public class Pratica4 {
     private double d;
     private int parti;
 
-    public Pratica4(long a, long x0, int b, double d, int parti) {
+    public Pratica4(long a, long x0, int b, int d, int parti) {
         this.setA(a);
         this.setX0(x0);
         this.setD(d);
@@ -28,40 +28,31 @@ public class Pratica4 {
 
 
     public void applicaTest() {
-        List<List<Long>> sequenze = Util.creaSequenze(this.getD(), this.getA(), this.getX0(), this.getB(), this.getParti());
+        long[][] sequenze = Util.creaSequenze(this.getD(), this.getA(), this.getX0(), this.getB(), this.getParti());
         int successiUniformita = testUniformita(sequenze);
         int successiSeriale = testSeriale(sequenze);
-        //if ( su >= 0 && ss >= 1)
-        //    System.out.println("\nDAJE SEMPRE!!!!!!! " + su + " | "  + ss + " | "  + this.getA() + " | " + this.getX0());
-
-        /*if ( su >= 2 )
-            System.out.println(su  + " | "  + ss + " | "  + this.getA() + " | " + this.getX0());
-
-        if ( ss >= 3 )
-            System.out.println(su  + " | "  + ss + " | "  + this.getA() + " | " + this.getX0());*/
-
-        if( successiUniformita >= 2 && successiSeriale >= 3)
-            System.out.println("\nDAJE SEMPRE!!!!!!! " + successiUniformita + " | "  + successiSeriale + " | "  + this.getA() + " | " + this.getX0());
-
+        // test sui successi uniformità e seriale
+        //if( successiUniformita >= 2 && successiSeriale >= 3)
+        //    System.out.println("-->[Successi Uniformità=" + successiUniformita + "][Successi Seriale="  + successiSeriale + "][a="  + this.getA() + "][x0=" + this.getX0() + "]");
     }
 
     /**
      * @param sequenze le sequenze da analizzare
      * @return il numero delle sotto-sequenze Accettabili
      */
-    public Integer testUniformita(List<List<Long>> sequenze) {
+    public int testUniformita(long[][] sequenze) {
 
         // stampa parametri
         stampaParametri("--Il Test di Uniformita'");
 
         int accettabili = 0;
-        for (List<Long> sottoSequenza : sequenze ) {
+        for (long[] sottoSequenza : sequenze ) {
 
             // calcolo delle frequenze della sottosequenza
-            List<Double> l = Statistiche.calcolaFrequenze(sottoSequenza);
+           double[] l = Statistiche.calcolaFrequenze(sottoSequenza);
 
             // calcolo di V
-            double v =  TestChiQuadro.calcolaV(l, sottoSequenza.size(), 1 / this.getD());
+            double v =  TestChiQuadro.calcolaV(l, sottoSequenza.length, 1 / this.getD());
 
             // classifica V con d-1 gradi di liberta'
             if( TestChiQuadro.classificaV(v, this.getD() - 1)) {
@@ -69,7 +60,7 @@ public class Pratica4 {
             }
         }
 
-        System.out.println("Risulta Accettabile " + accettabili + " volte su " +  sequenze.size() + "\n");
+        System.out.println("Risulta Accettabile " + accettabili + " volte su " + sequenze.length + "\n");
         return accettabili;
     }
 
@@ -78,14 +69,14 @@ public class Pratica4 {
      * @param sequenze le sequenze da analizzare
      * @return il numero delle sotto-sequenze Accettabili
      */
-    public Integer testSeriale(List<List<Long>> sequenze) {
+    public int testSeriale(long[][] sequenze) {
 
         // stampa parametri
         stampaParametri("--Il Test Seriale");
 
         int dd = (int) Math.pow(this.getD(), 2);
         int accettabili = 0;
-        for (List<Long> sequenza : sequenze ) {
+        for (long[] sequenza : sequenze ) {
 
             // sequenza (Z0, Z1)
             System.out.print("Sequenza (Z0, Z1) ");
@@ -101,49 +92,12 @@ public class Pratica4 {
                 accettabili++;
             }
         }
-        System.out.println("Risulta Accettabile " + accettabili + " volte su " +  sequenze.size() * 2 + "\n");
+        System.out.println("Risulta Accettabile " + accettabili + " volte su " +  sequenze.length * 2 + "\n");
         return accettabili;
     }
 
     private void stampaParametri(String name) {
         System.out.println(name + " dato [a=" + this.getA() + "]" + "[x0=" + this.getX0() + "]" + "[b=" + this.getB() + "]"+ "[d=" + this.getD() + "]"+ "[parti=" + this.getParti()+ "]");
-    }
-
-
-    public static void main(String args[]) {
-        int b = 19;
-        //int a = 8933;
-        //int x0 = 1;
-        int d = 64;
-        int parti = 3;
-/*        for (int x0=3; x0 < 9 ; x0+=2) {
-            for (int a=301; a < 9000; a+=2) {
-                new Pratica4(a, x0, b, d, prove).applicaTest();
-            }
-        }*/
-
-        /*for (int x0=3; x0 < 9 ; x0+=2) {
-            for (int a=9001; a < 11001; a+=2) {
-                new Pratica4(a, x0, b, d, prove).applicaTest();
-            }
-        }*/
-
-        /*for (int x0=3; x0 < 9 ; x0+=2) {
-            for (int a=10037; a < 11000; a+=2) {
-                new Pratica4(a, x0, b, d, prove).applicaTest();
-            }
-        }*/
-
-        /*int a = 10037;
-        for (int x0=3; x0 < 1111 ; x0+=2) {
-            new Pratica4(a, x0, b, d, prove).applicaTest();
-        }*/
-
-        // working
-        long a = 10037;
-        long x0 = 3;
-        new Pratica4(a, x0, 19, d, parti).applicaTest();
-
     }
 
     public long getA() {
@@ -174,7 +128,7 @@ public class Pratica4 {
         return d;
     }
 
-    public void setD(double d) {
+    public void setD(int d) {
         this.d = d;
     }
 

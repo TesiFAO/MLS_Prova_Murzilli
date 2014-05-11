@@ -49,30 +49,30 @@ public class Pratica3 {
         this.setAvg(avg);
     }
 
-    public List<Double> generaRn() {
-        List<Double> l = new GeneratoreRn(this.getA(), this.getB(), this.getX0()).generaSequenza();
-        Util.printRn(l, this.getA(), this.getX0(), this.getB(), true, false);
+    public double[] generaRn() {
+        double[] l = new GeneratoreRn(this.getA(), this.getB(), this.getX0()).generaSequenza();
+        Util.printRn(l, this.getA(), this.getX0(), this.getB(), false, false);
         Statistiche.calcolaStatistiche(l, 10.0, null);
         return l;
     }
 
-    public List<Double> generaIntervallo() {
-        List<Double> l = new GeneratoreUniforme(this.getA(), this.getB(), this.getX0(), this.getMin(), this.getMax()).generaSequenza();
-        Util.printSequenzaUniforme(l, this.getA(), this.getX0(), this.getB(), this.getMin(), this.getMax(), true, false);
+    public double[] generaIntervallo() {
+        double[] l = new GeneratoreUniforme(this.getA(), this.getB(), this.getX0(), this.getMin(), this.getMax()).generaSequenza();
+        Util.printSequenzaUniforme(l, this.getA(), this.getX0(), this.getB(), this.getMin(), this.getMax(), false, false);
         Statistiche.calcolaStatistiche(l, 10.0, null);
         return l;
     }
 
-    public List<Double> generaEsponenziale() {
-        List<Double> l = new GeneratoreEsponenziale(this.getA(), this.getB(), this.getX0(), this.getAvg()).generaSequenza();
-        Util.printEsponenziale(l, this.getA(),this.getB(),  this.getAvg(), this.getX0(), true, false);
+    public double[] generaEsponenziale() {
+        double[] l = new GeneratoreEsponenziale(this.getA(), this.getB(), this.getX0(), this.getAvg()).generaSequenza();
+        Util.printEsponenziale(l, this.getA(),this.getB(),  this.getAvg(), this.getX0(), false, false);
         Statistiche.calcolaStatistiche(l, 25.0, null);
         return l;
     }
 
-    public List<Double> generaKErlangiana() {
-        List<Double> l = new GeneratoreKErlangiana(this.getA(), this.getB(), this.getXos(), this.getAvg(), this.getK()).generaSequenza();
-        Util.printKErlangiana(l, this.getA(), this.getB(), this.getK(), this.getAvg(), this.getXos(), true, false);
+    public double[] generaKErlangiana() {
+        double[] l = new GeneratoreKErlangiana(this.getA(), this.getB(), this.getXos(), this.getAvg(), this.getK()).generaSequenza();
+        Util.printKErlangiana(l, this.getA(), this.getB(), this.getK(), this.getAvg(), this.getXos(), false, false);
         Statistiche.calcolaStatistiche(l, 20.0, null);
         return l;
     }

@@ -26,11 +26,11 @@ public class GeneratoreCM {
     }
 
     // genera la sequenza in base ai parametri del generatore
-    public List<Long> generaSequenza() {
-        int size = (int) Math.pow(2, this.getB()- 2);
-        List<Long> l = new ArrayList<Long>(size);
-        while( l.size() < size) {
-            l.add(x);
+    public long[] generaSequenza() {
+        int size = (int) Math.pow(2, this.getB() - 2);
+        long[] l = new long[size];
+        for(int i=0; i < l.length; i++) {
+            l[i] = x;
             x = getNext();
         }
         return l;

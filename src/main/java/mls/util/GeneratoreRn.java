@@ -23,25 +23,25 @@ public class GeneratoreRn {
     }
 
     // genera la sequenza in base ai parametri del generatore
-    public List<Double> generaSequenza() {
+    public double[] generaSequenza() {
         int size = (int) Math.pow(2, g.getB()- 2);
-        List<Double> l = new ArrayList<Double>(size);
-        double v = getNext();
-        while( l.size() < size) {
-            l.add(v);
-            v = getNext();
+        double[] l = new double[size];
+        double r = getNext();
+        for(int i=0; i < l.length; i++) {
+            l[i] = r;
+            r = getNext();
         }
         return l;
     }
 
     // genera la sequenza Zn in base ai parametri del generatore
-    public List<Long> generaSequenzaZn(double d) {
+    public long[] generaSequenzaZn(double d) {
         int size = (int) Math.pow(2, g.getB()- 2);
-        List<Long> l = new ArrayList<Long>(size);
-        double v = getNext() * d;
-        while( l.size() < size) {
-            l.add((long) Math.floor(v));
-            v = getNext()* d;
+        long[] l = new long[size];
+        double r = getNext() * d;
+        for(int i=0; i < l.length; i++) {
+            l[i] = (long) Math.floor(r);
+            r = getNext() * d;
         }
         return l;
     }

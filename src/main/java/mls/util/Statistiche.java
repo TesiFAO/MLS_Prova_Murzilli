@@ -14,12 +14,12 @@ public class Statistiche {
      * @param l sequenza
      * @return media della sequenza
      */
-    public static double calcolaMedia(List<Double> l) {
+    public static double calcolaMedia(double[] l) {
         double somma = 0.0;
         for (Double v : l) {
             somma += v;
         }
-        return (somma / l.size());
+        return somma / l.length;
     }
 
     /**
@@ -29,12 +29,12 @@ public class Statistiche {
      * @param media media della sequenza
      * @return varianza della sequenza
      */
-    public static double calcolaVarianza(List<Double> l, double media) {
+    public static double calcolaVarianza(double[] l, double media) {
         double sumsq = 0.0;
-        for (Double v : l) {
+        for (double v : l) {
             sumsq += Math.pow(v-media, 2);
         }
-        return sumsq / l.size();
+        return sumsq / l.length;
     }
 
     /**
@@ -44,12 +44,13 @@ public class Statistiche {
      * @param intervalli intervalli
      * @param creaChart booleano per la creazione della chart tramite Highchart
      */
-    public static void calcolaStatistiche(List<Double> l, double intervalli, Boolean creaChart) {
-        double min = Collections.min(l);
-        double max = Collections.max(l);
+    public static void calcolaStatistiche(double[] l, double intervalli, Boolean creaChart) {
+        double[] minmax = getMinMax(l);
+        double min = minmax[0];
+        double max = minmax[1];
         double step = (max - min) / intervalli;
         SortedMap<Double, Integer> numeroOccorrenze = numeroOsservazioni(l, step, min, max);
-        SortedMap<Double, Double> frequenzaRelativa = frequezaRelativa(numeroOccorrenze, l.size());
+        SortedMap<Double, Double> frequenzaRelativa = frequezaRelativa(numeroOccorrenze, l.length);
         SortedMap<Double, Double> densitaProbabilita = densitaProbabilita(frequenzaRelativa, step);
         SortedMap<Double, Double> cumulata = calcolaCumulata(frequenzaRelativa);
         double media =  calcolaMedia(l);
@@ -69,6 +70,17 @@ public class Statistiche {
         }
     }
 
+    public static double[] getMinMax(double[] l) {
+        double[] minmax = new double[2];
+        minmax[0] = l[0];
+        minmax[1] = l[0];
+        for (int i = 1; i < l.length; i++) {
+            minmax[0] = Math.min(minmax[0], l[i]);
+            minmax[1] = Math.max(minmax[1], l[i]);
+        }
+        return minmax;
+    }
+
     /**
      * Calcola il numero di osservazioni della sequenza
      *
@@ -78,7 +90,7 @@ public class Statistiche {
      * @param max massimo
      * @return Map contenente soglie e numero delle occorrenze
      */
-    public static SortedMap<Double, Integer> numeroOsservazioni(List<Double> l, double step, double min, double max) {
+    public static SortedMap<Double, Integer> numeroOsservazioni(double[] l, double step, double min, double max) {
         SortedMap<Double, Integer> osservazioni = new TreeMap();
         double intervalMin = min + step;
 
@@ -88,7 +100,7 @@ public class Statistiche {
             osservazioni.put(range + step, 0);
 
         // per ogni valore della sequenza viene incremeantato il relativo intervallo di appartenenza
-        for(Double v : l) {
+        for(double v : l) {
             for(double range=min; range <= max; range+=step) {
                 double interval = range + step;
                 if ( v > range && v <= (interval) ) {
@@ -156,18 +168,21 @@ public class Statistiche {
      * @param l sequenza
      * @return Lista con il numero delle occorrenze della sequenza
      */
-    public static List<Double> calcolaFrequenze(List<Long> l) {
+    public static double[] calcolaFrequenze(long[] l) {
         LinkedHashMap<Long, Double> f = new LinkedHashMap<Long, Double>();
-        for (Long v : l) {
+        for (long v : l) {
             double c = 1.0;
             if ( f.containsKey(v))
                 c += f.get(v);
             f.put(v, c);
         }
 
-        List<Double> s = new ArrayList<Double>();
-        for (Double v : f.values())
-            s.add(v);
+        double[] s = new double[f.size()];
+        int index=0;
+        for (double v : f.values()) {
+            s[index] = v;
+            index++;
+        }
         return s;
     }
 }

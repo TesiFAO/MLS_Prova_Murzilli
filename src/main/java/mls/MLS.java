@@ -7,6 +7,7 @@ package mls;
 public class MLS {
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
             if (arg.equals("pratica1"))
@@ -18,14 +19,12 @@ public class MLS {
             else if (arg.equals("pratica4"))
                 pratica4();
         }
-
        /* pratica1();
         pratica2();
         pratica3();
-        pratica4();
         pratica4();*/
-
-        pratica4();
+        long endTime = System.currentTimeMillis();
+        System.out.println("Tempo = " + (double) (endTime - startTime) / 1000 + "sec");
     }
 
     private static void pratica1() {
@@ -40,7 +39,6 @@ public class MLS {
     private static void pratica2() {
         int a = 3;
         int b = 12;
-        int m = (int) Math.pow(2, b);
         int x0 = 1;
         int min = 60;
         int max = 80;

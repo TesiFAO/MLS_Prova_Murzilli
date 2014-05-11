@@ -26,11 +26,12 @@ public class TestChiQuadro {
      * @param ps
      * @return valore V
      */
-    public static double calcolaV(List<Double> l, double n, double ps) {
+    public static double calcolaV(double[] l, double n, double ps) {
         double v = 0.0;
         double nps = n * ps;
-        for (int i = 0 ; i < l.size() ; i++)
-            v += Math.pow(l.get(i) - nps, 2) / nps;
+        for (int i = 0 ; i < l.length ; i++) {
+            v += Math.pow(l[i] - nps, 2) / nps;
+        }
         return v;
     }
 
@@ -42,23 +43,13 @@ public class TestChiQuadro {
      * @param d valore d
      * @return valore V
      */
-    public static double calcolaVSeriale(List<Long> l, int serie, int d) {
-        int[][] matrix = new int[d][d];
-
-        // calcolo matrice delle frequenze
-        for (int i = serie; i < l.size() - 1; i+=2) {
-            matrix[l.get(i).intValue()][l.get(i + 1).intValue()] = matrix[l.get(i).intValue()][l.get(i + 1).intValue()] + 1;
+    public static double calcolaVSeriale(long[] l, int serie, int d) {
+        // calcola frequenze usando un array d^2
+        double s[] = new double[(int) Math.pow(d,2)];
+        for (int i = serie; i < l.length - 1; i+=2) {
+            s[(int)l[i]*d + (int)l[i+1]] = s[(int)l[i]*d + (int)l[i+1]] + 1;
         }
-
-        // calcolo array d^2 dalla matrice delle frequenze da passare al metodo per il calcolo di V
-        List<Double> s = new ArrayList<Double>();
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                s.add((double)(matrix[i][j]));
-            }
-        }
-
-        return TestChiQuadro.calcolaV(s, (double) l.size() / 2, (double) 1 / Math.pow(d, 2));
+        return TestChiQuadro.calcolaV(s, (double) l.length / 2, (double) 1 / Math.pow(d, 2));
     }
 
     /**
@@ -91,12 +82,15 @@ public class TestChiQuadro {
 
         System.out.print("V=[" + v + "] ");
         if ( v >= p25 && v <= p75 )  { System.out.println(p25 + " <= " + v + " <= " + p75 + " Accettabile"); return true; }
-        else if ( (v >= p1 && v <= p5) ) { System.out.println(p1 + " <= " + v + " <= " + p5 + " Sospetto"); }
-        else if ( (v >= p95 && v <= p99) ) { System.out.println(p95 + " <= " + v + " <= " + p99 + " Sospetto"); }
+        else if ( (v >= p10 && v <= p25) ) { System.out.println(p10 + " <= " + v + " <= " + p25 + " Accettabile/Quasi Sospetto"); }
+        else if ( (v >= p75 && v <= p90) ) { System.out.println(p75 + " <= " + v + " <= " + p90 + " Accettabile/Quasi Sospetto"); }
         else if ( (v >= p5 && v <= p10) ) { System.out.println(p5 + " <= " + v + " <= " + p10 + " Quasi Sospetto"); }
         else if ( (v >= p90 && v <= p95) ) { System.out.println(p90 + " <= " + v + " <= " + p95 + " Quasi Sospetto"); }
+        else if ( (v >= p1 && v <= p5) ) { System.out.println(p1 + " <= " + v + " <= " + p5 + " Sospetto"); }
+        else if ( (v >= p95 && v <= p99) ) { System.out.println(p95 + " <= " + v + " <= " + p99 + " Sospetto"); }
         else if ( v > p99 )  { System.out.println(v + " > " + p99  + " Rigetto"); }
         else if ( v < p1 )  { System.out.println(v + " < " + p1  + " Rigetto"); }
+        else System.out.println(v + " Rigetto");
         return false;
     }
 }
