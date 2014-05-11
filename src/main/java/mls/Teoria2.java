@@ -33,8 +33,7 @@ public class Teoria2 {
         double sd =  Statistiche.calcolaStandardDeviation(Statistiche.calcolaVarianza(l, media));
         double sd1 = Statistiche.calcolaStandardDeviation(Statistiche.calcolaVarianza(l1, media1));
 
-        double sds = sd * sd1;
-        double corr = cov / sds;
+        double corr = cov / (sd * sd1);
         System.out.println("Media: " + media);
         System.out.println("Media1: " + media1);
         System.out.println("Covarianza: " + cov);
