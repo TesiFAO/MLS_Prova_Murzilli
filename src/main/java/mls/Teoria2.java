@@ -2,6 +2,7 @@ package mls;
 
 import mls.util.GeneratoreCM;
 import mls.util.Statistiche;
+import mls.util.Util;
 
 import java.util.Arrays;
 
@@ -34,8 +35,12 @@ public class Teoria2 {
         double sd1 = Statistiche.calcolaStandardDeviation(Statistiche.calcolaVarianza(l1, media1));
 
         double corr = cov / (sd * sd1);
+        System.out.println("Sequenza: " + Util.sequenceToString(l));
+        System.out.println("Sequenza+1: " + Util.sequenceToString(l1));
         System.out.println("Media: " + media);
-        System.out.println("Media1: " + media1);
+        System.out.println("Media+1: " + media1);
+        System.out.println("Sd: " + sd);
+        System.out.println("Sd+1: " + sd1);
         System.out.println("Covarianza: " + cov);
         System.out.println("Correlazione: " + corr);
         System.out.println();
