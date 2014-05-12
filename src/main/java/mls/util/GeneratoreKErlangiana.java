@@ -16,7 +16,7 @@ public class GeneratoreKErlangiana {
 
     /**
      *
-     * Generatore K-Erlangiano
+     * Generatore K-Erl
      *
      * @param a
      * @param b
@@ -37,10 +37,9 @@ public class GeneratoreKErlangiana {
 
     // genera la sequenza in base ai parametri del generatore
     public double[] generaSequenza() {
-        int size = (int) Math.pow(2, b- 2);
-        double[] l = new double[size];
+        double[] l = new double[(int) Math.pow(2, b-2)];
         double avgk = -avg / k;
-        for(int i=0; i < size; i++) {
+        for(int i=0; i < l.length; i++) {
             double sumlog = 0.0;
             for (int j = 0; j < k; j++) {
                 sumlog += Math.log(getGrns().get(j).getNext());

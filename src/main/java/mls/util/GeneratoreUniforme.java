@@ -9,7 +9,6 @@ public class GeneratoreUniforme {
     private double min;
     private double max;
 
-
     public GeneratoreUniforme(long a, long b, long x0, double min, double max) {
         this.setGrn(new GeneratoreRn(a, b, x0));
         this.setMin(min);
@@ -23,12 +22,9 @@ public class GeneratoreUniforme {
 
     // genera la sequenza in base ai parametri del generatore
     public double[] generaSequenza() {
-        int size = (int) Math.pow(2, grn.getG().getB()- 2);
-        double[] l = new double[size];
-        double r = getNext();
+        double[] l = new double[(int) Math.pow(2, grn.getG().getB()-2)];
         for(int i=0; i < l.length; i++) {
-            l[i] = r;
-            r = getNext();
+            l[i] = getNext();
         }
         return l;
     }

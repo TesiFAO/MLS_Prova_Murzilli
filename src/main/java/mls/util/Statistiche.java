@@ -118,7 +118,7 @@ public class Statistiche {
         SortedMap<Double, Integer> osservazioni = new TreeMap();
         double intervalMin = min + step;
 
-        // genera intervalli con valore 0
+        // genera  intervalli inizializzati a 0
         osservazioni.put(intervalMin, 0);
         for(double range=min; range < max; range+=step)
             osservazioni.put(range + step, 0);

@@ -22,14 +22,13 @@ public class GeneratoreRn {
     // genera il prossimo valore usando il GeneratoreCM dividendolo per il modulo
     public double getNext() {
         double v = (double) g.getX() / g.getM();
-        g.getNext(); // crea nuovo x0 in GeneratoreCM
+        g.getNext(); // crea nuovo x in GeneratoreCM
         return v;
     }
 
     // genera la sequenza in base ai parametri del generatore
     public double[] generaSequenza() {
-        int size = (int) Math.pow(2, g.getB()- 2);
-        double[] l = new double[size];
+        double[] l = new double[(int) Math.pow(2, g.getB()- 2)];
         for(int i=0; i < l.length; i++) {
             l[i] = getNext();
         }

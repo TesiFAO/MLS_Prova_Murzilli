@@ -18,9 +18,9 @@ public class TestChiQuadro {
     /**
      * Calcola il valore V della sequenza
      *
-     * @param l
-     * @param n
-     * @param ps
+     * @param l Frequenze
+     * @param n Dimensione vettore
+     * @param ps Probabilita' teorica
      * @return valore V
      */
     public static double calcolaV(double[] l, double n, double ps) {
@@ -50,13 +50,13 @@ public class TestChiQuadro {
     }
 
     /**
-     * Calcola il Percentile
+     * Calcola l’alpha-percentile
      *
      * @param df gradi di libertà
      * @param za z-alfa
      * @return valore del percentile
      */
-    public static double calcolaChiQuadro(double df, double za) {
+    public static double calcolaAlphaPercentile(double df, double za) {
         return (df * Math.pow(1.0 - (2.0 / (9.0 * df)) + (za * Math.sqrt(2.0 / (9.0 * df))), 3));
     }
 
@@ -68,14 +68,14 @@ public class TestChiQuadro {
      * @return true se è Accetabile, false negli altri casi
      */
     public static boolean classificaV(double v, double df) {
-        double p1 =  calcolaChiQuadro(df, Z1);
-        double p5 =  calcolaChiQuadro(df, Z5);
-        double p10 = calcolaChiQuadro(df, Z10);
-        double p25 = calcolaChiQuadro(df, Z25);
-        double p75 = calcolaChiQuadro(df, Z75);
-        double p90 = calcolaChiQuadro(df, Z90);
-        double p95 = calcolaChiQuadro(df, Z95);
-        double p99 = calcolaChiQuadro(df, Z99);
+        double p1 =  calcolaAlphaPercentile(df, Z1);
+        double p5 =  calcolaAlphaPercentile(df, Z5);
+        double p10 = calcolaAlphaPercentile(df, Z10);
+        double p25 = calcolaAlphaPercentile(df, Z25);
+        double p75 = calcolaAlphaPercentile(df, Z75);
+        double p90 = calcolaAlphaPercentile(df, Z90);
+        double p95 = calcolaAlphaPercentile(df, Z95);
+        double p99 = calcolaAlphaPercentile(df, Z99);
 
         System.out.print("V=[" + v + "] ");
         if ( v >= p25 && v <= p75 )  { System.out.println(p25 + " <= " + v + " <= " + p75 + " Accettabile"); return true; }

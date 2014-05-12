@@ -28,8 +28,7 @@ public class GeneratoreEsponenziale {
 
     // genera la sequenza in base ai parametri del generatore
     public double[] generaSequenza() {
-        int size = (int) Math.pow(2, grn.getG().getB()- 2);
-        double[] l = new double[size];
+        double[] l = new double[(int) Math.pow(2, grn.getG().getB()- 2)];
         for(int i=0; i < l.length; i++) {
             l[i] = getNext();
         }

@@ -4,6 +4,7 @@ package mls.util;
  * @author Simone Murzilli
  */
 
+
 public class GeneratoreCM {
     private long a;
     private long b;
@@ -31,8 +32,7 @@ public class GeneratoreCM {
 
     // genera la sequenza in base ai parametri del generatore
     public long[] generaSequenza() {
-        int size = (int) Math.pow(2, this.getB() - 2);
-        long[] l = new long[size];
+        long[] l = new long[(int) Math.pow(2, this.getB() - 2)];
         for(int i=0; i < l.length; i++) {
             l[i] = x;
             x = getNext();
