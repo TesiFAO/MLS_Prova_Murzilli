@@ -8,6 +8,14 @@ public class GeneratoreEsponenziale {
     private GeneratoreRn grn;
     private double avg;
 
+    /**
+     * Generatore Esponenziale
+     *
+     * @param a
+     * @param b
+     * @param x0
+     * @param avg
+     */
     public GeneratoreEsponenziale(long a, long b, long x0, double avg) {
         this.setGrn(new GeneratoreRn(a, b, x0));
         this.setAvg(avg);
@@ -22,10 +30,8 @@ public class GeneratoreEsponenziale {
     public double[] generaSequenza() {
         int size = (int) Math.pow(2, grn.getG().getB()- 2);
         double[] l = new double[size];
-        double r = getNext();
         for(int i=0; i < l.length; i++) {
-            l[i] = r;
-            r = getNext();
+            l[i] = getNext();
         }
         return l;
     }

@@ -35,17 +35,18 @@ public class Pratica1 {
         // ordinamento della sequenza
         Arrays.sort(l);
 
-        // controllo se la sequenza ordinata appartiene al corollario
+        // controllo se la sequenza ordinata e’ uguale ad una di quelle generate dal corollario
         controlloSequenza(l, corollarioA1, corollarioA2);
 
         return l;
     }
 
     private void controlloSequenza(long[] l, long[] corollarioA1, long[] corollarioA2) {
+        System.out.println(" Sequenza Ordinata = [" + Util.sequenceToString(l)+"]");
         if (Arrays.equals(l, corollarioA1))
-            System.out.println("E' contenuta nella lista A1 creata dal corollario\n");
+            System.out.println("E' contenuta nella lista A1 creata dal corollario\n" + "CorollarioA1 = [" + Util.sequenceToString(corollarioA1)+"]\n");
         else if (Arrays.equals(l, corollarioA2))
-            System.out.println("E' contenuta nella lista A2 creata dal corollario\n");
+            System.out.println("E' contenuta nella lista A2 creata dal corollario\n" + "CorollarioA2 = [" + Util.sequenceToString(corollarioA2)+"]\n");
         else
             System.out.println("Non e' contenuta in una delle liste create dal corollario\n");
     }

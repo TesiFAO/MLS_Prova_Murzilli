@@ -6,7 +6,7 @@ import java.util.Map;
 /*
  * @author Simone Murzilli
  */
-public class Highchart {
+public class Highcharts {
 
    private String title;
    private String subtitle;
@@ -16,7 +16,7 @@ public class Highchart {
    private String decimalFormatData;
    private String decimalFormatCategories;
 
-   public Highchart(String title, String subtitle, String type, String decimalFormatCategories, String decimalFormatData) {
+   public Highcharts(String title, String subtitle, String type, String decimalFormatCategories, String decimalFormatData) {
        this.setTitle(title);
        this.setType(type);
        this.setSubtitle(subtitle);
@@ -37,7 +37,7 @@ public class Highchart {
        return r;
    }
 
-    public static void printHighchart(Map map, double min, Highchart highchart) {
+    public static void printHighcharts(Map map, double min, Highcharts highchart) {
         int count = 0;
         DecimalFormat df = new DecimalFormat(highchart.getDecimalFormatData());
         String data = "[";
@@ -66,7 +66,7 @@ public class Highchart {
 
         highchart.setData(data);
         highchart.setCategories(categories);
-        System.out.println("Highchart: " + highchart.getChart());
+        System.out.println("Highcharts: " + highchart.getChart());
     }
 
     public String getTitle() {
@@ -114,7 +114,7 @@ public class Highchart {
     }
 
     public static void setS(String s) {
-        Highchart.s = s;
+        Highcharts.s = s;
     }
 
     public String getDecimalFormatData() {

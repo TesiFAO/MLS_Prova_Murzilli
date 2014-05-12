@@ -19,24 +19,23 @@ public class MLS {
             else if (arg.equals("pratica4"))
                 pratica4();
         }
-       /* pratica1();
+        pratica1();
         pratica2();
         pratica3();
-        pratica4();*/
+        pratica4();
         long endTime = System.currentTimeMillis();
         System.out.println("Tempo = " + (double) (endTime - startTime) / 1000 + "sec");
     }
 
     private static void pratica1() {
+        System.out.println("********************** PRATICA1 \n");
         int b = 9;
-        new Pratica1(3, b, 1).generaSequenza();
-        new Pratica1(11, b, 9).generaSequenza();
-        new Pratica1(27, b, 15).generaSequenza();
-        new Pratica1(11, b, 233).generaSequenza();
-        new Pratica1(19, b, 427).generaSequenza();
+        new Pratica1(3, b, 11).generaSequenza();
+        new Pratica1(27, b, 23).generaSequenza();
     }
 
     private static void pratica2() {
+        System.out.println("********************** PRATICA2 \n");
         int a = 3;
         int b = 12;
         int x0 = 1;
@@ -55,6 +54,7 @@ public class MLS {
     }
 
     private static void pratica3() {
+        System.out.println("********************** PRATICA3 \n");
         int a = 3;
         int b = 12;
         int m = (int) Math.pow(2, b);
@@ -74,11 +74,12 @@ public class MLS {
     }
 
     private static void pratica4() {
+        System.out.println("********************** PRATICA4 \n");
         int b = 19;
         int d = 64;
         int prove = 3;
         long a = 10037;
-        long x0 = 161;
+        long x0 = 213;
         new Pratica4(a, x0, b, d, prove).applicaTest();
     }
 

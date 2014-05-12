@@ -38,7 +38,7 @@ public class Util {
     }
 
     public static void stampaSequenza(long[] l, int a, int b, int x0) {
-        System.out.println("--La sequenza creata dato [a=" + a + "]" + "[x0=" + x0 + "]" + "[b=" + b + "] \n"  + sequenceToString(l));
+        System.out.println("--La sequenza creata dato [a=" + a + "]" + "[x0=" + x0 + "]" + "[b=" + b + "] \n Sequenza = ["  + sequenceToString(l) + "]");
     }
 
     public static String sequenceToString(double[] l) {
@@ -62,20 +62,16 @@ public class Util {
     }
 
     public static long[][] creaSequenze(double d, long a, long x0, long b, int parti ) {
-        // genera zn
-        long[] zn = new GeneratoreRn(a, b, x0).generaSequenzaZn(d);
-
-        // vengono create le sotto-sequenze dalla sequenza zn
-        double dimensioneSequenza = zn.length / parti;
-        long[][] sequenze = new long[parti][zn.length / parti];
-        int index = 0;
+        int dimensioneSequenze = (int) Math.pow(2, b - 2) / parti;
+        int resto = (int) Math.pow(2, b - 2) % parti;
+        long[][] sequenze = new long[parti][dimensioneSequenze];
+        GeneratoreRn grn = new GeneratoreRn(a, b, x0);
+        // genera n-sequenze Zn
         for(int i=0; i < parti; i++) {
             if ( i < parti - 1)
-                sequenze[i] = Arrays.copyOfRange(zn, index, index + (int) dimensioneSequenza);
-
+                sequenze[i] = grn.generaSequenzaZn(d, dimensioneSequenze);
             else
-                sequenze[i] = Arrays.copyOfRange(zn, index, zn.length);
-            index += dimensioneSequenza;
+                sequenze[i] = grn.generaSequenzaZn(d, dimensioneSequenze + resto);
         }
         return sequenze;
     }
@@ -92,9 +88,9 @@ public class Util {
      * @return
      */
     public static String printRn(double[] l, long a, long x0, long b, boolean serie, boolean controllo) {
-        String s = "--Sequenza Rn dato [a=" + a + "]" + "[x0=" + x0 + "]"+ "[b=" + b + "]";
+        String s = "--Sequenza <Rn> dato [a=" + a + "]" + "[x0=" + x0 + "]"+ "[b=" + b + "]";
         if ( serie)
-            s += "\n" + sequenceToString(l);
+            s += "\nSequenza = [" + sequenceToString(l) + "]";
         if  (controllo ) {
             boolean c = controllaSequenzaRn(l);
             s += "\nLa sequenza e' compresa tra [0,1) [" + c + "]\n";
@@ -104,9 +100,9 @@ public class Util {
     }
 
     public static String printSequenzaUniforme(double[] l, long a, long x0, long b, double min, double max, boolean serie, boolean controllo) {
-        String s = "--Sequenza uniforme in ("+ min + "," + max +") dato [a=" + a + "]" + "[x0=" + x0 + "]" + "[b="+ b +"]";
+        String s = "--Sequenza Uniforme in ("+ min + "," + max +") dato [a=" + a + "]" + "[x0=" + x0 + "]" + "[b="+ b +"]";
         if ( serie)
-            s += "\n" + sequenceToString(l);
+            s += "\nSequenza = [" + sequenceToString(l) + "]";
         if  (controllo ) {
             boolean c = controllaSequenza(l, min, max);
             s += "\nLa sequenza e' compresa tra (" + min + "," + max + ") [" + c + "]\n";
@@ -118,7 +114,7 @@ public class Util {
     public static String printEsponenziale(double[] l, long a, long b, double avg, long x0, boolean serie, boolean media) {
         String s = "--Sequenza Esponenziale di media "+ avg +" dato [a=" + a + "]" + "[x0="+ x0 +"]" + "[b="+ b +"]";
         if ( serie)
-            s += "\n" + sequenceToString(l);
+            s += "\nSequenza = [" + sequenceToString(l) + "]";
         if  (media )
             s += "\nMedia: " + Statistiche.calcolaMedia(l) + "\n";
         System.out.println(s);
@@ -128,7 +124,7 @@ public class Util {
     public static String printKErlangiana(double[] l, long a, long b, int k, double avg, long[] xos, boolean serie, boolean media) {
         String s = "--Sequenza "+ k +"-Erlangiana di media "+ avg +" dato [a=" + a + "]" + "[b=" + b +"]" + "[k=" + k +"][X0s="+ print(xos) +"]";
         if ( serie)
-            s += "\n" + sequenceToString(l);
+            s += "\nSequenza = [" + sequenceToString(l) + "]";
         if  (media )
             s += "\nMedia: " + Statistiche.calcolaMedia(l) + "\n";
         System.out.println(s);

@@ -10,6 +10,13 @@ public class GeneratoreCM {
     private long m;
     private long x;
 
+    /**
+     * Generatore Congruente oltiplicativo
+     *
+     * @param a
+     * @param b
+     * @param x0
+     */
     public GeneratoreCM(long a, long b, long x0) {
       this.setA(a);
       this.setB(b);

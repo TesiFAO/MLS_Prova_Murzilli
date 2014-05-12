@@ -1,5 +1,6 @@
 package mls.util;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 /*
@@ -62,20 +63,22 @@ public class Statistiche {
      *
      * @param l sequenza
      * @param intervalli intervalli
-     * @param creaChart booleano per la creazione della chart tramite Highchart
+     * @param creaChart booleano per la creazione della chart tramite Highcharts
      */
-    public static void calcolaStatistiche(double[] l, double intervalli, Boolean creaChart) {
+    public static void calcolaStatistiche(double[] l, double intervalli, Boolean creaChart, String dfCategories, String dfData) {
         double[] minmax = getMinMax(l);
         double min = minmax[0];
         double max = minmax[1];
         double step = (max - min) / intervalli;
         SortedMap<Double, Integer> numeroOccorrenze = numeroOsservazioni(l, step, min, max);
+        List<String> soglie = getSoglie(numeroOccorrenze, min, max, dfCategories);
         SortedMap<Double, Double> frequenzaRelativa = frequezaRelativa(numeroOccorrenze, l.length);
         SortedMap<Double, Double> densitaProbabilita = densitaProbabilita(frequenzaRelativa, step);
         SortedMap<Double, Double> cumulata = calcolaCumulata(frequenzaRelativa);
         double media =  calcolaMedia(l);
         double varianza =  calcolaVarianza(l, media);
-        System.out.println("Occorrenze: " + numeroOccorrenze.values());
+        System.out.println("Soglie: " + soglie.toString());
+        System.out.println("Numero Occorrenze: " + numeroOccorrenze.values());
         System.out.println("Frequenza Relativa: " + frequenzaRelativa.values());
         System.out.println("Densita' di probabilita': " + densitaProbabilita.values());
         System.out.println("Cumulata: " + cumulata.values());
@@ -83,12 +86,13 @@ public class Statistiche {
         System.out.println("Varianza: " + varianza + "\n");
 
         if ( creaChart != null && creaChart ) {
-            Highchart.printHighchart(numeroOccorrenze, min, new Highchart("Numero Occorrenze", "", "column",  "#0.0", "#0"));
-            Highchart.printHighchart(frequenzaRelativa, min, new Highchart("Requenza Relativa", "", "column",  "#0.0", "#0.000"));
-            Highchart.printHighchart(densitaProbabilita, min, new Highchart("Densità di Probabilità", "", "column",  "#0.0", "#0.000"));
-            Highchart.printHighchart(cumulata, min, new Highchart("Cumulata", "", "line",  "#0.0", "#0.000"));
+            Highcharts.printHighcharts(numeroOccorrenze, min, new Highcharts("Numero Occorrenze", "", "column", dfCategories, dfData));
+            Highcharts.printHighcharts(frequenzaRelativa, min, new Highcharts("Requenza Relativa", "", "column", dfCategories, dfData));
+            Highcharts.printHighcharts(densitaProbabilita, min, new Highcharts("Densità di Probabilità", "", "column", dfCategories, "#0.0000"));
+            Highcharts.printHighcharts(cumulata, min, new Highcharts("Cumulata", "", "line", dfCategories, dfData));
         }
     }
+
 
     public static double[] getMinMax(double[] l) {
         double[] minmax = new double[2];
@@ -204,5 +208,49 @@ public class Statistiche {
             index++;
         }
         return s;
+    }
+
+    /**
+     * Restituisce le soglie
+     *
+     * @param map
+     * @param min
+     * @param decimalFormat
+     * @return
+     */
+    private static List<String> getSoglie(Map map, double min, double max, String decimalFormat) {
+        DecimalFormat df = new DecimalFormat(decimalFormat);
+        List<String> soglie = new ArrayList<String>();
+        int count = 0;
+        String prec = df.format(min);
+        for(Object key: map.keySet()) {
+            String soglia = "";
+            if ( count < map.size())
+                soglie.add(prec + "-" + df.format(key));
+            else
+                soglie.add(prec + "-" + df.format(max));
+            prec = df.format(key);
+        }
+        return soglie;
+    }
+
+    private static String print(Map map, double min, double max, String decimalFormat) {
+        DecimalFormat df = new DecimalFormat(decimalFormat);
+        String categories = "[";
+        int count = 0;
+        String prec = df.format(min);
+        for(Object key: map.keySet()) {
+            if ( count < map.size())
+                categories += "\"" + prec + "-" + df.format(key) + "\"";
+            else
+                categories += "\"" + prec + "-" + df.format(max) + "\"";
+            prec = df.format(key);
+            count++;
+            if ( count < map.size()) {
+                categories += ",";
+            }
+        }
+        categories += "]";
+        return categories;
     }
 }

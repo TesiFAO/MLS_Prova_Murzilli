@@ -14,6 +14,16 @@ public class GeneratoreKErlangiana {
     private long[] xos;
     private long b;
 
+    /**
+     *
+     * Generatore K-Erlangiano
+     *
+     * @param a
+     * @param b
+     * @param x0s
+     * @param avg
+     * @param k
+     */
     public GeneratoreKErlangiana(long a, long b, long[] x0s, double avg, double k) {
         this.setGrns(new ArrayList<GeneratoreRn>((int) k));
         for(int i=0; i < k; i++) {

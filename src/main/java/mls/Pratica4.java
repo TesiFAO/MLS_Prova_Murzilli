@@ -28,6 +28,7 @@ public class Pratica4 {
         long[][] sequenze = Util.creaSequenze(this.getD(), this.getA(), this.getX0(), this.getB(), this.getParti());
         int successiUniformita = testUniformita(sequenze);
         int successiSeriale = testSeriale(sequenze);
+
         // test sui successi uniformità e seriale
         //if( successiUniformita >= 2 && successiSeriale >= 3)
         //    System.out.println("-->[Successi Uniformità=" + successiUniformita + "][Successi Seriale="  + successiSeriale + "][a="  + this.getA() + "][x0=" + this.getX0() + "]");
