@@ -9,24 +9,24 @@ public class GeneratoreEsponenziale {
     private double avg;
 
     /**
-     * Generatore Esponenziale
-     *
-     * @param a
-     * @param b
-     * @param x0
-     * @param avg
+     * @param a   Parametro a del generatore congruente moltiplicativo
+     * @param b   Parametro b potenza di m = 2^b
+     * @param x0  Seme X0
+     * @param avg media
      */
-    public GeneratoreEsponenziale(long a, long b, long x0, double avg) {
+    public GeneratoreEsponenziale(long a, int b, long x0, double avg) {
         this.setGrn(new GeneratoreRn(a, b, x0));
         this.setAvg(avg);
     }
 
-    // genera il valore successivo della sequenza
     public double getNext() {
         return (-avg * Math.log(grn.getNext()));
     }
 
-    // genera la sequenza in base ai parametri del generatore
+    /**
+     * Restituisce una sequenza esponenziale lung 2^b-2
+     * @return Restituisce una sequenza esponenziale lung 2^b-2
+     */
     public double[] generaSequenza() {
         double[] l = new double[(int) Math.pow(2, grn.getG().getB()- 2)];
         for(int i=0; i < l.length; i++) {
@@ -35,19 +35,15 @@ public class GeneratoreEsponenziale {
         return l;
     }
 
-
     public GeneratoreRn getGrn() {
         return grn;
     }
-
     public void setGrn(GeneratoreRn grn) {
         this.grn = grn;
     }
-
     public double getAvg() {
         return avg;
     }
-
     public void setAvg(double avg) {
         this.avg = avg;
     }

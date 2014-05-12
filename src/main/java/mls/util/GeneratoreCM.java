@@ -7,32 +7,36 @@ package mls.util;
 
 public class GeneratoreCM {
     private long a;
-    private long b;
+    private int b;
     private long m;
     private long x;
 
     /**
-     * Generatore Congruente oltiplicativo
-     *
-     * @param a
-     * @param b
-     * @param x0
+     * @param a  Parametro a del generatore congruente moltiplicativo
+     * @param b  Parametro b potenza di m = 2^b
+     * @param x0 Seme X0
      */
-    public GeneratoreCM(long a, long b, long x0) {
+    public GeneratoreCM(long a, int b, long x0) {
       this.setA(a);
       this.setB(b);
       this.setM((long) Math.pow(2, b));
       this.setX(x0);
     }
 
-    // genera il prossimo valore della sequenza
+    /**
+     * Restituisce valore generato tramite il GCM
+     * @return Valore generato tramite il GCM
+     */
     public long getNext() {
         return x = (a * x) % m;
     }
 
-    // genera la sequenza in base ai parametri del generatore
+    /**
+     * Restituisce una sequenza lunga 2^b-2
+     * @return Restituisce una sequenza lunga 2^b-2
+     */
     public long[] generaSequenza() {
-        long[] l = new long[(int) Math.pow(2, this.getB() - 2)];
+        long[] l = new long[(int) Math.pow(2, this.getB()-2)];
         for(int i=0; i < l.length; i++) {
             l[i] = x;
             x = getNext();
@@ -52,7 +56,7 @@ public class GeneratoreCM {
         return b;
     }
 
-    public void setB(long b) {
+    public void setB(int b) {
         this.b = b;
     }
 

@@ -7,7 +7,7 @@ package mls;
 public class MLS {
 
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
+        //long startTime = System.currentTimeMillis();
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
             if (arg.equals("pratica1"))
@@ -19,23 +19,19 @@ public class MLS {
             else if (arg.equals("pratica4"))
                 pratica4();
         }
-        //pratica1();
-        //pratica2();
-        pratica3();
-       // pratica4();
-        long endTime = System.currentTimeMillis();
-        System.out.println("Tempo = " + (double) (endTime - startTime) / 1000 + "sec");
+        //long endTime = System.currentTimeMillis();
+        //System.out.println("Tempo = " + (double) (endTime - startTime) / 1000 + "sec");
     }
 
     private static void pratica1() {
-        System.out.println("********************** PRATICA1 \n");
+        System.out.println("********************** PRATICA-1 ********************** ");
         int b = 9;
-        new Pratica1(3, b, 11).generaSequenza();
-        new Pratica1(27, b, 23).generaSequenza();
+        Pratica1.generaSequenza(3, b, 3);
+        Pratica1.generaSequenza(27, b, 23);
     }
 
     private static void pratica2() {
-        System.out.println("********************** PRATICA2 \n");
+        System.out.println("********************** PRATICA-2 ********************** ");
         int a = 3;
         int b = 12;
         int x0 = 1;
@@ -44,17 +40,18 @@ public class MLS {
         double avg = 30.0;
         int k = 3;
 
-        new Pratica2(a, x0, b).generaRn();
-        new Pratica2(a, x0, b, min, max).generaIntervallo();
-        new Pratica2(a, x0, b, avg).generaEsponenziale();
+        Pratica2.generaRn(a, b, x0);
+        Pratica2.generaIntervallo(a, b, x0, min, max);
+        Pratica2.generaEsponenziale(a, b, x0, avg);
 
         // diversi X0 da passare alla k-erlangiana
         long[] xos = new long[]{5,9,67};
-        new Pratica2(a, b, avg, k, xos).generaKErlangiana();
+        Pratica2.generaKErlangiana(a, b, xos, avg, k);
+
     }
 
     private static void pratica3() {
-        System.out.println("********************** PRATICA3 \n");
+        System.out.println("********************** PRATICA-3 ********************** ");
         int a = 3;
         int b = 12;
         int m = (int) Math.pow(2, b);
@@ -64,23 +61,22 @@ public class MLS {
         double avg = 30.0;
         int k = 3;
 
-        new Pratica3(a, x0, b).generaRn();
-        new Pratica3(a, x0, b, min, max).generaIntervallo();
-        new Pratica3(a, x0, b, avg).generaEsponenziale();
+        Pratica3.generaRn(a, b, x0);
+        Pratica3.generaIntervallo(a, b, x0, min, max);
+        Pratica3.generaEsponenziale(a, b, x0, avg);
 
         // diversi X0 da passare alla k-erlangiana
         long[] xos = new long[]{5,9,67};
-        new Pratica3(a, b, avg, k, xos).generaKErlangiana();
+        Pratica3.generaKErlangiana(a, b, xos, avg, k);
     }
 
     private static void pratica4() {
-        System.out.println("********************** PRATICA4 \n");
+        System.out.println("********************** PRATICA-4 ********************** ");
         int b = 19;
         int d = 64;
         int prove = 3;
         long a = 10037;
         long x0 = 213;
-        new Pratica4(a, x0, b, d, prove).applicaTest();
+        Pratica4.applicaTest(a, b, x0, d, prove);
     }
-
 }

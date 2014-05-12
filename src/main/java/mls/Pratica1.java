@@ -10,27 +10,17 @@ import java.util.Arrays;
  */
 public class Pratica1 {
 
-    private int a;
-    private int b;
-    private int x0;
+    public static long[] generaSequenza(int a, int b, int x0) {
 
-    public Pratica1(int a, int b, int x0) {
-        this.setA(a);
-        this.setB(b);
-        this.setX0(x0);
-    }
-
-    public long[] generaSequenza() {
-
-        // generazione valori del corollario
-        long[] corollarioA1 = Util.generaValoriCorollarioA(this.getB(), 1);
-        long[] corollarioA2 = Util.generaValoriCorollarioA(this.getB(), 15);
+        // generazione valori del corollario con valori x0=1 e x0=15
+        long[] corollarioA1 = Util.generaValoriCorollarioA(b, 1);
+        long[] corollarioA2 = Util.generaValoriCorollarioA(b, 15);
 
         // generazione sequenza
-        long[] l = new GeneratoreCM(this.getA(), this.getB(), this.getX0()).generaSequenza();
+        long[] l = new GeneratoreCM(a, b, x0).generaSequenza();
 
         // stampa della sequenza generata
-        Util.stampaSequenza(l, this.getA(), this.getB(), this.getX0());
+        Util.stampaSequenza(l, a, b, x0);
 
         // ordinamento della sequenza
         Arrays.sort(l);
@@ -41,7 +31,7 @@ public class Pratica1 {
         return l;
     }
 
-    private void controlloSequenza(long[] l, long[] corollarioA1, long[] corollarioA2) {
+    private static void controlloSequenza(long[] l, long[] corollarioA1, long[] corollarioA2) {
         System.out.println(" Sequenza Ordinata = [" + Util.sequenceToString(l)+"]");
         if (Arrays.equals(l, corollarioA1))
             System.out.println("E' contenuta nella lista A1 creata dal corollario\n" + "CorollarioA1 = [" + Util.sequenceToString(corollarioA1)+"]\n");
@@ -50,11 +40,4 @@ public class Pratica1 {
         else
             System.out.println("Non e' contenuta in una delle liste create dal corollario\n");
     }
-
-    public int getA() { return a; }
-    public void setA(int a) { this.a = a; }
-    public int getB() { return b; }
-    public void setB(int b) { this.b = b; }
-    public int getX0() { return x0; }
-    public void setX0(int x0) { this.x0 = x0; }
 }

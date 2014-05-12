@@ -9,18 +9,31 @@ public class GeneratoreUniforme {
     private double min;
     private double max;
 
-    public GeneratoreUniforme(long a, long b, long x0, double min, double max) {
+    /**
+     * @param a   Parametro a del generatore congruente moltiplicativo
+     * @param b   Parametro b potenza di m = 2^b
+     * @param x0  Seme X0
+     * @param min minimo
+     * @param max massimo
+     */
+    public GeneratoreUniforme(long a, int b, long x0, double min, double max) {
         this.setGrn(new GeneratoreRn(a, b, x0));
         this.setMin(min);
         this.setMax(max);
     }
 
-    // genera il valore successivo della sequenza
+    /**
+     * Restituisce valore generato tra (min,max)
+     * @return Valore generato tra (min,max)
+     */
     public double getNext() {
         return min + (grn.getNext() * (max-min));
     }
 
-    // genera la sequenza in base ai parametri del generatore
+    /**
+     * Restituisce una sequenza lunga 2^b-2 tra (min,max)
+     * @return Restituisce una sequenza lunga 2^b-2 tra (min,max)
+     */
     public double[] generaSequenza() {
         double[] l = new double[(int) Math.pow(2, grn.getG().getB()-2)];
         for(int i=0; i < l.length; i++) {

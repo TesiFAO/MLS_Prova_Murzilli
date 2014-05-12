@@ -23,6 +23,7 @@ public class Statistiche {
         return somma / l.length;
     }
 
+    // usato in Teoria2
     public static double calcolaMedia(long[] l) {
         double somma = 0.0;
         for (long v : l) {
@@ -46,6 +47,7 @@ public class Statistiche {
         return sumsq / l.length;
     }
 
+    // usato in Teoria2
     public static double calcolaVarianza(long[] l, double media) {
         double sumsq = 0.0;
         for (long v : l) {
@@ -72,7 +74,7 @@ public class Statistiche {
         double step = (max - min) / intervalli;
         SortedMap<Double, Integer> numeroOccorrenze = numeroOsservazioni(l, step, min, max);
         List<String> soglie = getSoglie(numeroOccorrenze, min, max, dfCategories);
-        SortedMap<Double, Double> frequenzaRelativa = frequezaRelativa(numeroOccorrenze, l.length);
+        SortedMap<Double, Double> frequenzaRelativa = frequenzaRelativa(numeroOccorrenze, l.length);
         SortedMap<Double, Double> densitaProbabilita = densitaProbabilita(frequenzaRelativa, step);
         SortedMap<Double, Double> cumulata = calcolaCumulata(frequenzaRelativa);
         double media =  calcolaMedia(l);
@@ -106,10 +108,9 @@ public class Statistiche {
     }
 
     /**
-     * Calcola il numero di osservazioni della sequenza
-     *
+     * Calcola il numero di osservazioni nei vari intervalli della sequenza
      * @param l sequenza
-     * @param step step della sequenza
+     * @param step step dato da (max-min)/intervalli
      * @param min minimo
      * @param max massimo
      * @return Map contenente soglie e numero delle occorrenze
@@ -147,7 +148,7 @@ public class Statistiche {
      * @param size dimensione della sequenza
      * @return Map contenente soglie e valore delle frequenze relative
      */
-    public static SortedMap<Double, Double> frequezaRelativa(SortedMap<Double, Integer> osservazioni, double size) {
+    public static SortedMap<Double, Double> frequenzaRelativa(SortedMap<Double, Integer> osservazioni, double size) {
         SortedMap<Double, Double> frequenzaRelativa = new TreeMap();
         for(Double key: osservazioni.keySet()) {
             frequenzaRelativa.put(key, osservazioni.get(key) / size);

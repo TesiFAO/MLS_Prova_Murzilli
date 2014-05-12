@@ -15,16 +15,13 @@ public class GeneratoreKErlangiana {
     private long b;
 
     /**
-     *
-     * Generatore K-Erl
-     *
-     * @param a
-     * @param b
-     * @param x0s
-     * @param avg
-     * @param k
+     * @param a   Parametro a del generatore congruente moltiplicativo
+     * @param b   Parametro b potenza di m = 2^b
+     * @param x0s Semi X0
+     * @param avg media
+     * @param k   k stadi
      */
-    public GeneratoreKErlangiana(long a, long b, long[] x0s, double avg, double k) {
+    public GeneratoreKErlangiana(long a, int b, long[] x0s, double avg, double k) {
         this.setGrns(new ArrayList<GeneratoreRn>((int) k));
         for(int i=0; i < k; i++) {
             addGn(new GeneratoreRn(a, b, x0s[i]));
@@ -35,7 +32,10 @@ public class GeneratoreKErlangiana {
         this.setB(b);
     }
 
-    // genera la sequenza in base ai parametri del generatore
+    /**
+     * Restituisce una sequenza k-erlangiana lunga 2^b-2
+     * @return Restituisce una sequenza k-erlangiana lunga 2^b-2
+     */
     public double[] generaSequenza() {
         double[] l = new double[(int) Math.pow(2, b-2)];
         double avgk = -avg / k;
@@ -50,47 +50,15 @@ public class GeneratoreKErlangiana {
     }
 
     // aggiunge k-esimo generatore
-    private void addGn(GeneratoreRn grn) {
-       this.getGrns().add(grn);
-    }
-
-    public List<GeneratoreRn> getGrns() {
-        return grns;
-    }
-
-    public void setGrns(List<GeneratoreRn> grns) {
-        this.grns = grns;
-    }
-
-    public long[] getXos() {
-        return xos;
-    }
-
-    public void setXos(long[] xos) {
-        this.xos = xos;
-    }
-
-    public double getAvg() {
-        return avg;
-    }
-
-    public void setAvg(double avg) {
-        this.avg = avg;
-    }
-
-    public double getK() {
-        return k;
-    }
-
-    public void setK(double k) {
-        this.k = k;
-    }
-
-    public long getB() {
-        return b;
-    }
-
-    public void setB(long b) {
-        this.b = b;
-    }
+    private void addGn(GeneratoreRn grn) {this.getGrns().add(grn); }
+    public List<GeneratoreRn> getGrns() { return grns; }
+    public void setGrns(List<GeneratoreRn> grns) {this.grns = grns;}
+    public long[] getXos() {return xos;}
+    public void setXos(long[] xos) { this.xos = xos;}
+    public double getAvg() { return avg; }
+    public void setAvg(double avg) {this.avg = avg; }
+    public double getK() {return k; }
+    public void setK(double k) {this.k = k;}
+    public long getB() { return b;}
+    public void setB(long b) {this.b = b;}
 }

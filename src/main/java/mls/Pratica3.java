@@ -7,147 +7,31 @@ import mls.util.*;
  */
 public class Pratica3 {
 
-    private long a;
-    private long x0;
-    private long b;
-    private long m;
-    private double min;
-    private double max;
-    private double avg;
-    private int k;
-    private long[] xos;
-
-    public Pratica3(int a, int x0, int b) {
-        this.setA(a);
-        this.setX0(x0);
-        this.setB(b);
-        this.setM((long) Math.pow(2, b));
-    }
-    public Pratica3(int a, int x0, int b, int min, int max) {
-        this.setA(a);
-        this.setX0(x0);
-        this.setB(b);
-        this.setM((long) Math.pow(2, b));
-        this.setMin(min);
-        this.setMax(max);
-    }
-    public Pratica3(int a, int b, double avg, int k, long[] xos) {
-        this.setA(a);
-        this.setB(b);
-        this.setM((long) Math.pow(2, b));
-        this.setAvg(avg);
-        this.setK(k);
-        this.setXos(xos);
-    }
-    public Pratica3(int a, int x0, int b, double avg) {
-        this.setA(a);
-        this.setX0(x0);
-        this.setB(b);
-        this.setM((long) Math.pow(2, b));
-        this.setAvg(avg);
-    }
-
-    public double[] generaRn() {
-        double[] l = new GeneratoreRn(this.getA(), this.getB(), this.getX0()).generaSequenza();
-        Util.printRn(l, this.getA(), this.getX0(), this.getB(), false, false);
+    public static double[] generaRn(int a , int b, int x0) {
+        double[] l = new GeneratoreRn(a, b, x0).generaSequenza();
+        Util.printRn(l, a, x0, b, false, false);
         Statistiche.calcolaStatistiche(l, 10.0, false, "#0.0", "#0.0000");
         return l;
     }
 
-    public double[] generaIntervallo() {
-        double[] l = new GeneratoreUniforme(this.getA(), this.getB(), this.getX0(), this.getMin(), this.getMax()).generaSequenza();
-        Util.printSequenzaUniforme(l, this.getA(), this.getX0(), this.getB(), this.getMin(), this.getMax(), false, false);
+    public static double[] generaIntervallo(int a, int b, int x0, double min, double max) {
+        double[] l = new GeneratoreUniforme(a, b, x0, min, max).generaSequenza();
+        Util.printSequenzaUniforme(l, a, x0, b, min, max, false, false);
         Statistiche.calcolaStatistiche(l, 10.0, false, "#0.0", "#0.0000");
         return l;
     }
 
-    public double[] generaEsponenziale() {
-        double[] l = new GeneratoreEsponenziale(this.getA(), this.getB(), this.getX0(), this.getAvg()).generaSequenza();
-        Util.printEsponenziale(l, this.getA(),this.getB(),  this.getAvg(), this.getX0(), false, false);
+    public static double[] generaEsponenziale(int a, int b, int x0, double avg) {
+        double[] l = new GeneratoreEsponenziale(a,b, x0, avg).generaSequenza();
+        Util.printEsponenziale(l, a, b, avg, x0, false, false);
         Statistiche.calcolaStatistiche(l, 25.0, false, "#0", "#0.0000");
         return l;
     }
 
-    public double[] generaKErlangiana() {
-        double[] l = new GeneratoreKErlangiana(this.getA(), this.getB(), this.getXos(), this.getAvg(), this.getK()).generaSequenza();
-        Util.printKErlangiana(l, this.getA(), this.getB(), this.getK(), this.getAvg(), this.getXos(), false, false);
+    public static double[] generaKErlangiana(int a, int b, long[] x0s, double avg, int k) {
+        double[] l = new GeneratoreKErlangiana(a, b, x0s, avg, k).generaSequenza();
+        Util.printKErlangiana(l, a, b, k, avg, x0s, false, false);
         Statistiche.calcolaStatistiche(l, 20.0, false, "#0", "#0.0000");
         return l;
-    }
-
-    public long getA() {
-        return a;
-    }
-
-    public void setA(long a) {
-        this.a = a;
-    }
-
-    public long getX0() {
-        return x0;
-    }
-
-    public void setX0(long x0) {
-        this.x0 = x0;
-    }
-
-    public long getB() {
-        return b;
-    }
-
-    public void setB(long b) {
-        this.b = b;
-    }
-
-    public long getM() {
-        return m;
-    }
-
-    public void setM(long m) {
-        this.m = m;
-    }
-
-    public double getMin() {
-        return min;
-    }
-
-    public void setMin(double min) {
-        this.min = min;
-    }
-
-    public double getMax() {
-        return max;
-    }
-
-    public void setMax(double max) {
-        this.max = max;
-    }
-
-    public void setMax(long max) {
-        this.max = max;
-    }
-
-    public double getAvg() {
-        return avg;
-    }
-
-    public void setAvg(double avg) {
-        this.avg = avg;
-    }
-
-    public int getK() {
-        return k;
-    }
-
-    public void setK(int k) {
-        this.k = k;
-    }
-
-    public long[] getXos() {
-        return xos;
-    }
-
-    public void setXos(long[] xos) {
-        this.xos = xos;
     }
 }

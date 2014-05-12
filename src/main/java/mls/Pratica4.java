@@ -9,40 +9,20 @@ import mls.util.Util;
  */
 public class Pratica4 {
 
-    private long a;
-    private long x0;
-    private int b;
-    private double d;
-    private int parti;
-
-    public Pratica4(long a, long x0, int b, int d, int parti) {
-        this.setA(a);
-        this.setX0(x0);
-        this.setD(d);
-        this.setParti(parti);
-        this.setB(b);
-    }
-
-
-    public void applicaTest() {
-        long[][] sequenze = Util.creaSequenze(this.getD(), this.getA(), this.getX0(), this.getB(), this.getParti());
-        int successiUniformita = testUniformita(sequenze);
-        int successiSeriale = testSeriale(sequenze);
-
-        // test sui successi uniformità e seriale
-        //if( successiUniformita >= 2 && successiSeriale >= 3)
-        //    System.out.println("-->[Successi Uniformità=" + successiUniformita + "][Successi Seriale="  + successiSeriale + "][a="  + this.getA() + "][x0=" + this.getX0() + "]");
+    public static void applicaTest(long a, int b, long x0, double d, int parti) {
+        long[][] sequenze = Util.creaSequenze(d, a, x0, b, parti);
+        stampaParametri("--Il Test di Uniformita'", a, b, x0, d, parti);
+        testUniformita(sequenze, d);
+        stampaParametri("--Il Test Seriale", a, b, x0, d, parti);
+        testSeriale(sequenze, d);
     }
 
     /**
-     * @param sequenze le sequenze da analizzare
+     * @param sequenze Sequenze da analizzare
+     * @param d parametro d sequenza Zn
      * @return il numero delle sotto-sequenze Accettabili
      */
-    public int testUniformita(long[][] sequenze) {
-
-        // stampa parametri
-        stampaParametri("--Il Test di Uniformita'");
-
+    public static int testUniformita(long[][] sequenze, double d) {
         int accettabili = 0;
         for (long[] sottoSequenza : sequenze ) {
 
@@ -50,42 +30,38 @@ public class Pratica4 {
            double[] l = Statistiche.calcolaFrequenze(sottoSequenza);
 
             // calcolo di V
-            double v =  TestChiQuadro.calcolaV(l, sottoSequenza.length, 1 / this.getD());
+            double v =  TestChiQuadro.calcolaV(l, sottoSequenza.length, 1 / d);
 
             // classifica V con d-1 gradi di liberta'
-            if( TestChiQuadro.classificaV(v, this.getD() - 1)) {
+            if( TestChiQuadro.classificaV(v, d - 1)) {
                 accettabili++;
             }
         }
-
         System.out.println("Risulta Accettabile " + accettabili + " volte su " + sequenze.length + "\n");
         return accettabili;
     }
 
 
     /**
-     * @param sequenze le sequenze da analizzare
-     * @return il numero delle sotto-sequenze Accettabili
-     */
-    public int testSeriale(long[][] sequenze) {
-
-        // stampa parametri
-        stampaParametri("--Il Test Seriale");
-
-        int dd = (int) Math.pow(this.getD(), 2);
+    * @param sequenze Sequenze da analizzare
+    * @param d parametro d sequenza Zn
+    * @return il numero delle sotto-sequenze Accettabili
+    */
+    public static int testSeriale(long[][] sequenze, double d) {
+        int dd = (int) Math.pow(d, 2);
         int accettabili = 0;
         for (long[] sequenza : sequenze ) {
 
             // sequenza (Z0, Z1)
             System.out.print("Sequenza (Z0, Z1) ");
-            double v1 = TestChiQuadro.calcolaVSeriale(sequenza, 0, (int) this.getD());
+            double v1 = TestChiQuadro.calcolaVSeriale(sequenza, 0, (int) d);
             if (  TestChiQuadro.classificaV(v1, dd - 1) )  {
                 accettabili++;
             }
 
             // sequenza (Z1, Z2)
             System.out.print("Sequenza (Z1, Z2) ");
-            double v2 = TestChiQuadro.calcolaVSeriale(sequenza, 1, (int) this.getD());
+            double v2 = TestChiQuadro.calcolaVSeriale(sequenza, 1, (int) d);
             if ( TestChiQuadro.classificaV(v2, dd - 1) ) {
                 accettabili++;
             }
@@ -94,47 +70,7 @@ public class Pratica4 {
         return accettabili;
     }
 
-    private void stampaParametri(String name) {
-        System.out.println(name + " dato [a=" + this.getA() + "]" + "[x0=" + this.getX0() + "]" + "[b=" + this.getB() + "]"+ "[d=" + this.getD() + "]"+ "[parti=" + this.getParti()+ "]");
-    }
-
-    public long getA() {
-        return a;
-    }
-
-    public void setA(long a) {
-        this.a = a;
-    }
-
-    public long getX0() {
-        return x0;
-    }
-
-    public void setX0(long x0) {
-        this.x0 = x0;
-    }
-
-    public int getB() {
-        return b;
-    }
-
-    public void setB(int b) {
-        this.b = b;
-    }
-
-    public double getD() {
-        return d;
-    }
-
-    public void setD(int d) {
-        this.d = d;
-    }
-
-    public int getParti() {
-        return parti;
-    }
-
-    public void setParti(int parti) {
-        this.parti = parti;
+    private static void stampaParametri(String name,long a, int b, long x0, double d, int parti ) {
+        System.out.println(name + " dato [a=" + a + "]" + "[x0=" + x0 + "]" + "[b=" + b + "]"+ "[d=" + d + "]"+ "[parti=" + parti+ "]");
     }
 }

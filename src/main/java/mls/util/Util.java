@@ -9,11 +9,10 @@ public class Util {
 
 
     /**
-     * Genera una lista di valori dal corollario
-     *
-     * @param b
-     * @param x0
-     * @return lista di valori dal corollario a seconda del seme x0 e b
+     * Genera una lista di valori dal corollario in base a = 3 (mod 8)
+     * @param b  Parametro b potenza di m = 2^b
+     * @param x0 Seme x0
+     * @return Sequenza di valori dal corollario a seconda del seme x0 e b
      */
     public static long[] generaValoriCorollarioA(int b, int x0) {
         long[] l = new long[(int) Math.pow(2, b-2)];
@@ -61,7 +60,7 @@ public class Util {
         return s;
     }
 
-    public static long[][] creaSequenze(double d, long a, long x0, long b, int parti ) {
+    public static long[][] creaSequenze(double d, long a, long x0, int b, int parti ) {
         int dimensioneSequenze = (int) Math.pow(2, b - 2) / parti;
         int resto = (int) Math.pow(2, b - 2) % parti;
         long[][] sequenze = new long[parti][dimensioneSequenze];

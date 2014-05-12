@@ -17,7 +17,6 @@ public class TestChiQuadro {
 
     /**
      * Calcola il valore V della sequenza
-     *
      * @param l Frequenze
      * @param n Dimensione vettore
      * @param ps Probabilita' teorica
@@ -34,7 +33,6 @@ public class TestChiQuadro {
 
     /**
      * Calcola V per il test Seriale
-     *
      * @param l sequenza da analizzare
      * @param serie 0 se (Z0, Z1), 1 se (Z1, Z2) (indice di partenza)
      * @param d valore d
@@ -51,10 +49,9 @@ public class TestChiQuadro {
 
     /**
      * Calcola l’alpha-percentile
-     *
      * @param df gradi di libertà
      * @param za z-alfa
-     * @return valore del percentile
+     * @return valore dell’alpha percentile
      */
     public static double calcolaAlphaPercentile(double df, double za) {
         return (df * Math.pow(1.0 - (2.0 / (9.0 * df)) + (za * Math.sqrt(2.0 / (9.0 * df))), 3));
@@ -62,7 +59,6 @@ public class TestChiQuadro {
 
     /**
      * Controlla se il valore V è Accetabile
-     *
      * @param v valore V
      * @param df gradi di libertà
      * @return true se è Accetabile, false negli altri casi
