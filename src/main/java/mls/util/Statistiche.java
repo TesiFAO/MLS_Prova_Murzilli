@@ -249,48 +249,4 @@ public class Statistiche {
         return soglie;
     }
 
-
-    /**
-     * Restituisce le soglie
-     *
-     * @param map
-     * @param min
-     * @param decimalFormat
-     * @return
-     */
-    private static List<String> getSoglie(Map map, double min, double max, String decimalFormat) {
-        DecimalFormat df = new DecimalFormat(decimalFormat);
-        List<String> soglie = new ArrayList<String>();
-        int count = 0;
-        String prec = df.format(min);
-        for(Object key: map.keySet()) {
-            String soglia = "";
-            if ( count < map.size())
-                soglie.add(prec + "-" + df.format(key));
-            else
-                soglie.add(prec + "-" + df.format(max));
-            prec = df.format(key);
-        }
-        return soglie;
-    }
-
-    private static String print(Map map, double min, double max, String decimalFormat) {
-        DecimalFormat df = new DecimalFormat(decimalFormat);
-        String categories = "[";
-        int count = 0;
-        String prec = df.format(min);
-        for(Object key: map.keySet()) {
-            if ( count < map.size())
-                categories += "\"" + prec + "-" + df.format(key) + "\"";
-            else
-                categories += "\"" + prec + "-" + df.format(max) + "\"";
-            prec = df.format(key);
-            count++;
-            if ( count < map.size()) {
-                categories += ",";
-            }
-        }
-        categories += "]";
-        return categories;
-    }
 }

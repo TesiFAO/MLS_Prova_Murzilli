@@ -31,20 +31,21 @@ public class TestChiQuadro {
         return v;
     }
 
+
     /**
-     * Calcola V per il test Seriale
+     * Calcola frequenze test seriale tornando un array d^2
      * @param l sequenza da analizzare
      * @param serie 0 se (Z0, Z1), 1 se (Z1, Z2) (indice di partenza)
      * @param d valore d
-     * @return valore V
+     * @return calcola frequenze test seriale tornando un array d^2
      */
-    public static double calcolaVSeriale(long[] l, int serie, int d) {
+    public static double[] calcolaFrequenzeSeriale(long[] l, int serie, int d) {
         // calcola frequenze usando un array d^2
         double s[] = new double[(int) Math.pow(d,2)];
         for (int i = serie; i < l.length - 1; i+=2) {
             s[(int)l[i]*d + (int)l[i+1]] = s[(int)l[i]*d + (int)l[i+1]] + 1;
         }
-        return TestChiQuadro.calcolaV(s, (double) l.length / 2, (double) 1 / Math.pow(d, 2));
+        return s;
     }
 
     /**
