@@ -1,7 +1,7 @@
 package mls.utils;
 
-/**
- * Created by vortex on 11/05/14.
+/*
+ * @author Simone Murzilli
  */
 public class TestChiQuadro {
 

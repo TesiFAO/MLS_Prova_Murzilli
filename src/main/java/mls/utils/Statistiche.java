@@ -6,12 +6,10 @@ import java.util.*;
 /*
  * @author Simone Murzilli
  */
-
 public class Statistiche {
 
     /**
      * Calcola la media della sequenza
-     *
      * @param l sequenza
      * @return media della sequenza
      */
@@ -34,7 +32,6 @@ public class Statistiche {
 
     /**
      * Calcola la varianza della sequenza
-     *
      * @param l sequenza
      * @param media media della sequenza
      * @return varianza della sequenza
@@ -62,7 +59,6 @@ public class Statistiche {
 
     /**
      * Calcola le statistiche della sequenza
-     *
      * @param l sequenza
      * @param intervalli intervalli
      * @param creaChart booleano per la creazione della chart tramite Highcharts
@@ -97,8 +93,6 @@ public class Statistiche {
     }
 
     /**
-     *
-     *
      * @param l sequenza
      * @param intervalli numero intervalli
      * @param step step = (max-min) / intervalli
@@ -143,13 +137,11 @@ public class Statistiche {
             int index = 0;
             for(double range=min; range <= max; range+=step) {
                 double interval = range + step;
-                if ( v > range && v <= (interval) ) {
-                    osservazioni[index] = osservazioni[index] + 1;
-                    break;
+                if ( v >= range && v < interval ) {
+                    osservazioni[index] = osservazioni[index] + 1; break;
                 }
-                else if ( v == min) {
-                    osservazioni[0] = osservazioni[0] + 1;
-                    break;
+                else if ( v <= max && v > max-step ) {
+                    osservazioni[(int) intervalli-1] = osservazioni[(int) intervalli-1] + 1; break;
                 }
                 index++;
             }
@@ -229,11 +221,10 @@ public class Statistiche {
 
     /**
      * Restituisce le soglie
-     *
      * @param l
      * @param min
      * @param decimalFormat
-     * @return
+     * @return Lista delle soglie
      */
     private static List<String> getSoglie(double[] l, double min, double max, String decimalFormat) {
         DecimalFormat df = new DecimalFormat(decimalFormat);
@@ -248,5 +239,4 @@ public class Statistiche {
         }
         return soglie;
     }
-
 }

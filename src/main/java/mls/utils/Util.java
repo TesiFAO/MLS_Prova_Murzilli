@@ -5,7 +5,6 @@ package mls.utils;
  */
 public class Util {
 
-
     /**
      * Genera una lista di valori dal corollario in base a = 3 (mod 8)
      * @param b  Parametro b potenza di m = 2^b
@@ -36,36 +35,6 @@ public class Util {
 
     public static void stampaSequenza(long[] l, int a, int b, int x0) {
         System.out.println("--La sequenza creata dato [a=" + a + "]" + "[x0=" + x0 + "]" + "[b=" + b + "] \n Sequenza = ["  + sequenceToString(l) + "]");
-    }
-
-    public static String sequenceToString(double[] l) {
-        String s = "";
-        for(int i=0; i < l.length; i ++) {
-            s += l[i];
-            if ( i < l.length -1 )
-                s += ",";
-        }
-        return s;
-    }
-
-    public static String sequenceToString(long[] l) {
-        String s = "";
-        for(int i=0; i < l.length; i++) {
-            s += l[i];
-            if ( i < l.length -1 )
-                s += ",";
-        }
-        return s;
-    }
-
-    public static String sequenceToString(int[] l) {
-        String s = "";
-        for(int i=0; i < l.length; i++) {
-            s += l[i];
-            if ( i < l.length -1 )
-                s += ",";
-        }
-        return s;
     }
 
     public static long[][] creaSequenze(double d, long a, long x0, int b, int parti ) {
@@ -178,4 +147,33 @@ public class Util {
         return true;
     }
 
+    public static String sequenceToString(double[] l) {
+        String s = "";
+        for(int i=0; i < l.length; i ++) {
+            s += l[i];
+            if ( i < l.length -1 )
+                s += ",";
+        }
+        return s;
+    }
+
+    public static String sequenceToString(long[] l) {
+        String s = "";
+        for(int i=0; i < l.length; i++) {
+            s += l[i];
+            if ( i < l.length -1 )
+                s += ",";
+        }
+        return s;
+    }
+
+    public static String sequenceToString(int[] l) {
+        String s = "";
+        for(int i=0; i < l.length; i++) {
+            s += l[i];
+            if ( i < l.length -1 )
+                s += ",";
+        }
+        return s;
+    }
 }
