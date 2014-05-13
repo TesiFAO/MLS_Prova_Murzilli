@@ -23,7 +23,7 @@ public class GeneratoreRn {
      */
     public double getNext() {
         double v = (double) g.getX() / g.getM();
-        g.getNext(); // crea nuovo x in GeneratoreCM
+        g.getNext(); // genera nuovo x
         return v;
     }
 

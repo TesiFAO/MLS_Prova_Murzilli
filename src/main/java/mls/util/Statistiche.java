@@ -72,27 +72,48 @@ public class Statistiche {
         double min = minmax[0];
         double max = minmax[1];
         double step = (max - min) / intervalli;
-        SortedMap<Double, Integer> numeroOccorrenze = numeroOsservazioni(l, step, min, max);
-        List<String> soglie = getSoglie(numeroOccorrenze, min, max, dfCategories);
-        SortedMap<Double, Double> frequenzaRelativa = frequenzaRelativa(numeroOccorrenze, l.length);
-        SortedMap<Double, Double> densitaProbabilita = densitaProbabilita(frequenzaRelativa, step);
-        SortedMap<Double, Double> cumulata = calcolaCumulata(frequenzaRelativa);
+        double[] soglie = calcolaSoglie(l, intervalli, step, min, max);
+        int[] occorrenze = calcolaOccorrenze(l, intervalli, step, min, max);
+        double[] frequenzaRelativa = frequenzaRelativa(occorrenze, l.length);
+        double[] densitaProbabilita = densitaProbabilita(frequenzaRelativa, step);
+        double[] cumulata = calcolaCumulata(frequenzaRelativa);
         double media =  calcolaMedia(l);
         double varianza =  calcolaVarianza(l, media);
-        System.out.println("Soglie: " + soglie.toString());
-        System.out.println("Numero Occorrenze: " + numeroOccorrenze.values());
-        System.out.println("Frequenza Relativa: " + frequenzaRelativa.values());
-        System.out.println("Densita' di probabilita': " + densitaProbabilita.values());
-        System.out.println("Cumulata: " + cumulata.values());
+        List<String> soglieChart = getSoglie(soglie, min, max, dfCategories);
+        System.out.println("Soglie: "+ soglieChart.toString());
+        System.out.println("Numero Occorrenze: [" + Util.sequenceToString(occorrenze) + "]");
+        System.out.println("Frequenza Relativa: [" + Util.sequenceToString(frequenzaRelativa) + "]");
+        System.out.println("Densita' di probabilita': [" + Util.sequenceToString(densitaProbabilita) + "]");
+        System.out.println("Cumulata: [" + Util.sequenceToString(cumulata) + "]");
         System.out.println("Media: " + media);
         System.out.println("Varianza: " + varianza + "\n");
 
         if ( creaChart != null && creaChart ) {
-            Highcharts.printHighcharts(numeroOccorrenze, min, new Highcharts("Numero Occorrenze", "", "column", dfCategories, dfData));
-            Highcharts.printHighcharts(frequenzaRelativa, min, new Highcharts("Requenza Relativa", "", "column", dfCategories, dfData));
-            Highcharts.printHighcharts(densitaProbabilita, min, new Highcharts("Densità di Probabilità", "", "column", dfCategories, "#0.0000"));
-            Highcharts.printHighcharts(cumulata, min, new Highcharts("Cumulata", "", "line", dfCategories, dfData));
+            Highcharts.printHighcharts(occorrenze, soglieChart, new Highcharts("Numero Occorrenze", "", "column", dfCategories, dfData));
+            Highcharts.printHighcharts(frequenzaRelativa, soglieChart, new Highcharts("Requenza Relativa", "", "column", dfCategories, dfData));
+            Highcharts.printHighcharts(densitaProbabilita, soglieChart, new Highcharts("Densità di Probabilità", "", "column", dfCategories, "#0.0000"));
+            Highcharts.printHighcharts(cumulata, soglieChart, new Highcharts("Cumulata", "", "line", dfCategories, dfData));
         }
+    }
+
+    /**
+     *
+     *
+     * @param l sequenza
+     * @param intervalli numero intervalli
+     * @param step step = (max-min) / intervalli
+     * @param min minimo
+     * @param max massimo
+     * @return Sequenza con i valori delle soglie
+     */
+    public static double[] calcolaSoglie(double[] l, double intervalli, double step, double min, double max) {
+        double[] soglie = new double[(int) intervalli];
+        int index = 0;
+        for(double range=min; range < max; range+=step) {
+            soglie[index] = range + step;
+            index++;
+        }
+        return soglie;
     }
 
 
@@ -113,29 +134,24 @@ public class Statistiche {
      * @param step step dato da (max-min)/intervalli
      * @param min minimo
      * @param max massimo
-     * @return Map contenente soglie e numero delle occorrenze
+     * @return lista con le occorrenze
      */
-    public static SortedMap<Double, Integer> numeroOsservazioni(double[] l, double step, double min, double max) {
-        SortedMap<Double, Integer> osservazioni = new TreeMap();
-        double intervalMin = min + step;
-
-        // genera  intervalli inizializzati a 0
-        osservazioni.put(intervalMin, 0);
-        for(double range=min; range < max; range+=step)
-            osservazioni.put(range + step, 0);
-
+    public static int[] calcolaOccorrenze(double[] l, double intervalli, double step, double min, double max) {
+        int[] osservazioni = new int[(int) intervalli];
         // per ogni valore della sequenza viene incremeantato il relativo intervallo di appartenenza
         for(double v : l) {
+            int index = 0;
             for(double range=min; range <= max; range+=step) {
                 double interval = range + step;
                 if ( v > range && v <= (interval) ) {
-                    osservazioni.put(interval, osservazioni.get(interval) + 1);
+                    osservazioni[index] = osservazioni[index] + 1;
                     break;
                 }
                 else if ( v == min) {
-                    osservazioni.put(intervalMin, osservazioni.get(intervalMin) + 1);
+                    osservazioni[0] = osservazioni[0] + 1;
                     break;
                 }
+                index++;
             }
         }
         return osservazioni;
@@ -143,49 +159,48 @@ public class Statistiche {
 
     /**
      * Calcola la frequenza relativa in base alle osservazioni
-     *
      * @param osservazioni osservazioni rilevate
      * @param size dimensione della sequenza
-     * @return Map contenente soglie e valore delle frequenze relative
+     * @return lista con le frequenze relative
      */
-    public static SortedMap<Double, Double> frequenzaRelativa(SortedMap<Double, Integer> osservazioni, double size) {
-        SortedMap<Double, Double> frequenzaRelativa = new TreeMap();
-        for(Double key: osservazioni.keySet()) {
-            frequenzaRelativa.put(key, osservazioni.get(key) / size);
+    public static double[] frequenzaRelativa(int[] osservazioni, double size) {
+        double[] frequenzaRelativa = new double[osservazioni.length];
+        for(int i=0; i < osservazioni.length; i++) {
+            frequenzaRelativa[i] = osservazioni[i]/size;
         }
         return frequenzaRelativa;
     }
 
     /**
      * Calcola la densità di probabilità dalla frequenza relativa
-     *
      * @param frequenzaRelativa frequenza relativa della sequenza
-     * @param step intervallo della sequenza
-     * @return Map contenente soglie e valore della densità di probabilità
+     * @param step step
+     * @return lista con le frequenze relative
      */
-    public static SortedMap<Double, Double> densitaProbabilita(SortedMap<Double, Double> frequenzaRelativa, double step) {
-        SortedMap<Double, Double> densitaProbabilita = new TreeMap();
-        for(Double key: frequenzaRelativa.keySet()) {
-            densitaProbabilita.put(key, frequenzaRelativa.get(key) / step);
+    public static double[] densitaProbabilita(double[] frequenzaRelativa, double step) {
+        double[] densitaProbabilita = new double[frequenzaRelativa.length];
+        for(int i=0; i < frequenzaRelativa.length; i++) {
+            densitaProbabilita[i] = frequenzaRelativa[i]/step;
         }
         return densitaProbabilita;
     }
 
+
     /**
-     * Calcola la cumulata
-     *
+     * Calcola Cumulata
      * @param frequenzaRelativa frequenza relativa della sequenza
-     * @return Map contenente soglie e valore della cumulata
+     * @return lista con le frequenze relative
      */
-    public static SortedMap<Double, Double> calcolaCumulata(SortedMap<Double, Double> frequenzaRelativa) {
-        SortedMap<Double, Double> cumulativa = new TreeMap();
+    public static double[] calcolaCumulata(double[] frequenzaRelativa) {
+        double[] cumulata = new double[frequenzaRelativa.length];
         double sum = 0.0;
-        for(Double key: frequenzaRelativa.keySet()) {
-            sum += frequenzaRelativa.get(key);
-            cumulativa.put(key,sum);
+        for(int i=0; i < frequenzaRelativa.length; i++) {
+            sum += frequenzaRelativa[i];
+            cumulata[i] = sum;
         }
-        return cumulativa;
+        return cumulata;
     }
+
 
     /**
      * Calcola le frequenze all'interno di una sequenza
@@ -210,6 +225,30 @@ public class Statistiche {
         }
         return s;
     }
+
+
+    /**
+     * Restituisce le soglie
+     *
+     * @param l
+     * @param min
+     * @param decimalFormat
+     * @return
+     */
+    private static List<String> getSoglie(double[] l, double min, double max, String decimalFormat) {
+        DecimalFormat df = new DecimalFormat(decimalFormat);
+        List<String> soglie = new ArrayList<String>();
+        String prec = df.format(min);
+        for(int i=0; i < l.length; i++) {
+            if ( i < l.length)
+                soglie.add(prec + "-" + df.format(l[i]));
+            else
+                soglie.add(prec + "-" + df.format(max));
+            prec = df.format(l[i]);
+        }
+        return soglie;
+    }
+
 
     /**
      * Restituisce le soglie

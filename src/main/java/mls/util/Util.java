@@ -60,6 +60,16 @@ public class Util {
         return s;
     }
 
+    public static String sequenceToString(int[] l) {
+        String s = "";
+        for(int i=0; i < l.length; i++) {
+            s += l[i];
+            if ( i < l.length -1 )
+                s += ",";
+        }
+        return s;
+    }
+
     public static long[][] creaSequenze(double d, long a, long x0, int b, int parti ) {
         int dimensioneSequenze = (int) Math.pow(2, b - 2) / parti;
         int resto = (int) Math.pow(2, b - 2) % parti;
