@@ -1,4 +1,4 @@
-package mls.util;
+package mls.utils;
 
 import java.util.ArrayList;
 import java.util.List;

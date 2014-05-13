@@ -1,4 +1,4 @@
-package mls.util;
+package mls.utils;
 
 /**
  * Created by vortex on 11/05/14.

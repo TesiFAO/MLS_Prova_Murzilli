@@ -19,7 +19,6 @@ public class MLS {
             else if (arg.equals("pratica4"))
                 pratica4();
         }
-        pratica4();
         //long endTime = System.currentTimeMillis();
         //System.out.println("Tempo = " + (double) (endTime - startTime) / 1000 + "sec");
     }

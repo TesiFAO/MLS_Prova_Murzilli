@@ -1,8 +1,8 @@
 package mls;
 
-import mls.util.GeneratoreCM;
-import mls.util.Statistiche;
-import mls.util.Util;
+import mls.utils.GeneratoreCM;
+import mls.utils.Statistiche;
+import mls.utils.Util;
 
 import java.util.Arrays;
 

@@ -1,8 +1,7 @@
-package mls.util;
+package mls.utils;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Map;
 
 /*
  * @author Simone Murzilli

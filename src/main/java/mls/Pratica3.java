@@ -1,6 +1,6 @@
 package mls;
 
-import mls.util.*;
+import mls.utils.*;
 
 /*
  * @author Simone Murzilli

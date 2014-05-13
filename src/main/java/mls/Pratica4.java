@@ -1,8 +1,8 @@
 package mls;
 
-import mls.util.Statistiche;
-import mls.util.TestChiQuadro;
-import mls.util.Util;
+import mls.utils.Statistiche;
+import mls.utils.TestChiQuadro;
+import mls.utils.Util;
 
 /*
  * @author Simone Murzilli
@@ -11,8 +11,10 @@ public class Pratica4 {
 
     public static void applicaTest(long a, int b, long x0, double d, int parti) {
         long[][] sequenze = Util.creaSequenze(d, a, x0, b, parti);
+
         stampaParametri("--Il Test di Uniformita'", a, b, x0, d, parti);
         testUniformita(sequenze, d);
+
         stampaParametri("--Il Test Seriale", a, b, x0, d, parti);
         testSeriale(sequenze, d);
     }
@@ -53,8 +55,11 @@ public class Pratica4 {
             // sequenza (Z0, Z1)
             System.out.print("Sequenza (Z0, Z1) ");
             accettabili += testSequenzaSeriale(sequenza, 0, (int) d);
+
+            // sequenza (Z1, Z2)
             System.out.print("Sequenza (Z1, Z2) ");
             accettabili += testSequenzaSeriale(sequenza, 1, (int) d);
+
         }
         System.out.println("Risulta Accettabile " + accettabili + " volte su " +  sequenze.length * 2 + "\n");
         return accettabili;

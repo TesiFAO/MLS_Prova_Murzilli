@@ -1,4 +1,4 @@
-package mls.util;
+package mls.utils;
 
 /*
  * @author Simone Murzilli

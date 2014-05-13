@@ -1,6 +1,4 @@
-package mls.util;
-
-import java.util.*;
+package mls.utils;
 
 /*
  * @author Simone Murzilli
@@ -87,7 +85,6 @@ public class Util {
 
     /**
      * Utility di stampa
-     *
      * @param l
      * @param a
      * @param x0
