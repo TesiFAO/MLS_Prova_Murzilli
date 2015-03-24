@@ -1,4 +1,2 @@
-mls-simone2
+MLS (Metodi e Linguaggi di Simulazione)
 ===========
-
-mls2
